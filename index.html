@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>李宇航的博客</title>
+<!-- 文本编辑器 -->
+    <link rel="stylesheet" type="text/css" href="static/css/built-editor.css"/>
+        <!-- 鼠标点击出现心的js -->
+    <script src="static/js/clicklove.js"></script>
+   
+
+  </head>
+  <body>
+    <div id="app"></div>
+  
+  </body>
+  <!-- 鼠标点击更改背景的js -->
+  <script id="ribbon" size="300" alpha="0.1" zindex="-1" src="static/js/canvas-ribbon.js"></script>
+   <!-- 鼠标滑动页面玩法 -->
+  <script color="255,0,255" opacity="0.7" zindex="-1" count="140" src="static/js/canvas-nest.min.js"></script>
+
+  <!-- 看板娘 -->
+  <!-- <script type="text/javascript" charset="utf-8" src="static/js/L2Dwidget.min.js">
+  </script> -->
+  <!-- <script type="text/javascript" charset="utf-8" src="static/js/L2Dwidget.0.min.js">
+  </script> -->
+  <!-- <script type="text/javascript">
+      L2Dwidget.init({
+          "display": {
+              "superSample": 2,
+              "width": 200,
+              "height": 400,
+              "position": "left",
+              "hOffset": 0,
+              "vOffset": 0
+          }
+      });
+  </script> -->
+   <!-- 文本编辑器 -->
+   <script src="/static/js/built-editor.min.js"></script>
+    <script>
+      require(["orion/editor/edit"], function(edit) {
+        edit({className: "editor"});
+      });
+    </script>
+
+  </html>
