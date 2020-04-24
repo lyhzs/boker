@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="header">
       <div class="main">
         <div class="logo" @click="backHome()">
@@ -15,22 +14,22 @@
               </router-link>
             </li>
             <li>
-              <router-link :to="{path:'/my'}">
+              <router-link :to="{path:'/label'}">
                 <i class="el-icon-s-management"></i>标签
               </router-link>
             </li>
             <li>
-              <router-link :to="{path:'/my'}">
+              <router-link :to="{path:'/classify'}">
                 <i class="el-icon-s-ticket"></i>分类
               </router-link>
             </li>
             <li>
-              <router-link :to="{path:'/my'}">
+              <router-link :to="{path:'/pigeonhole'}">
                 <i class="el-icon-s-cooperation"></i>归档
               </router-link>
             </li>
             <li>
-              <router-link :to="{path:'/my'}">
+              <router-link :to="{path:'/interaction'}">
                 <i class="el-icon-s-promotion"></i>互动
               </router-link>
             </li>
@@ -40,12 +39,12 @@
               </router-link>
             </li>
             <li>
-              <router-link :to="{path:'/my'}">
+              <router-link :to="{path:'/about'}">
                 <i class="el-icon-s-custom"></i>关于
               </router-link>
             </li>
             <li>
-              <router-link :to="{path:'/my'}">
+              <router-link :to="{path:'/search'}">
                 <i class="el-icon-search"></i>搜索
               </router-link>
             </li>
@@ -53,7 +52,7 @@
         </div>
       </div>
       <a
-        href="javascript:;"
+        href="https://github.com/lyhzs"
         class="github-corner"
         title="Follow me on GitHub"
         aria-label="Follow me on GitHub"
@@ -83,8 +82,8 @@
       </a>
       <i class="el-icon-collection-tag sc"></i>
     </div>
-  </div>
-</template>sc
+
+</template>
 
 <script>
 export default {
@@ -123,22 +122,61 @@ export default {
 
     .logo {
       width: 45px;
+      cursor: pointer;
       span {
         display: block;
         height: 40px;
         width: 40px;
-        border-top: 2px solid #222;
-        border-bottom: 2px solid #222;
+        // border-top: 2px solid #222;
+        // border-bottom: 2px solid #222;
         text-align: center;
         line-height: 40px;
         position: relative;
+        transition: all 0.5s;
         i {
           font-size: 22px;
           font-weight: bolder;
           position: relative;
           left: -8px;
         }
+        :after{
+          content: "";
+          position: absolute;
+          top: -8px;
+          right: 10%;
+          width: 80%;
+          height: 2px;
+          background: #222
+        }
+        :before{
+           content: "";
+          position: absolute;
+          bottom: -8px;
+          left: 10%;
+          width: 80%;
+          height: 2px;
+          background: #222
+        }
+   
       }
+      span:hover{
+         :after{
+           animation: topleave 1s ;
+        }
+        :before{
+           animation: topleave 1s ;
+          }
+      }
+     @keyframes topleave {
+       0%{
+          width: 0%;
+       }
+     
+       100%{
+          width: 80%;
+       }
+     }
+
     }
     .nav {
       flex: 1;

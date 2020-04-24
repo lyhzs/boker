@@ -1,8 +1,8 @@
 <template>
-  <div>
-      <!-- {{this.$route.params.id}}
-        {{this.$store.state.dataArr[this.$route.params.id]}} -->
-        {{data}}
+  <div v-html='this.$store.state.details[0].bodytext' class="details">
+     <!-- {{this.$route.params.id}} -->
+      
+      <!-- {{data}} -->
   </div>
 </template>
 
@@ -20,12 +20,16 @@ export default {
 
   },
   mounted() {
-    this.data=this.$store.state.dataArr[this.$route.params.id]
+    this.$store.commit("lookdetails",this.$route.params.id)
+    // console.log(this.$store.state.details[0]);
+    
   }
 };
 </script>
 
 
 <style scoped lang="less">
-
+  .details{
+    margin-top: 15px
+  }
 </style>

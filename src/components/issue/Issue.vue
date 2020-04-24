@@ -27,14 +27,9 @@
 
     <!-- 富文本 -->
     <h3 class="title">文章内容：</h3>
-       
-      <pre id="editor" class="editor" data-editor-lang="js" data-editor-show-annotation-ruler="false" 
-      data-editor-show-overview-ruler="false" data-editor-show-folding-ruler="false"
-      >
-      </pre>
-     
-
-
+    <div>
+      <vue-html5-editor :content="content" :height="500" ref="editor" @change="updateData" :show-module-name="showModuleName"></vue-html5-editor>
+    </div>
 
     <!-- 提交 -->
     <div class="submit">
@@ -47,7 +42,6 @@
 </template>
 
 <script>
-
 export default {
   name: "Issue",
   data() {
@@ -56,7 +50,9 @@ export default {
       restaurants: [],
       title: "",
       classify: "",
-      timer: ""
+      timer: "",
+      content: "",
+      showModuleName: false
     };
   },
   methods: {
@@ -80,18 +76,16 @@ export default {
       console.log(item);
     },
     submit() {
-
-      console.log(typeof this.$refs.editorContent.innerHTML); 
+       console.log( this.content,555);
       var _this = this;
       var postData = {
         id: Date.parse(new Date()),
         title: this.title,
         classify: this.classify,
-        bodytext: this.$refs.editorContent.innerHTML,
+        bodytext: this.content,
         timer: this.timer
       };
       this.$http.post("/add", postData).then(function(res) {
-        
         if (res.data.state) {
           _this.$notify({
             title: "成功",
@@ -108,15 +102,15 @@ export default {
           });
         }
       });
-    }
+    },
+    updateData: function(data) {
+      // sync content to component
+      this.content = data;
+    },
+  
   },
   mounted() {
     this.restaurants = this.loadAll();
-    // this.$refs.fwb.innerHTML=`<pre id="editor" class="editor" data-editor-lang="js" data-editor-show-annotation-ruler="false" 
-    //   data-editor-show-overview-ruler="false" data-editor-show-folding-ruler="false"
-    //   >
-    //   </pre>`;
-
   }
 };
 </script>
@@ -130,7 +124,7 @@ export default {
   margin: 20px auto;
   text-align: center;
 }
-#editor{
+#editor {
   height: 450px;
 }
 </style>

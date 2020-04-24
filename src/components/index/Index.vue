@@ -26,11 +26,7 @@
       <div class="maintext" v-html="item.bodytext"></div>
       <span class="post-button" @click="todetails(item.id)">阅读全文»</span>
     </div>
-    <!-- 分页 -->
-
-           
-    </pre>
-
+          
   </div>
 </template>
 
@@ -70,8 +66,8 @@ export default {
 <style scoped lang="less">
 .main {
   .list {
-    padding: 25px;
-    margin-bottom: 60px;
+    padding: 5px 25px 25px;
+    margin-bottom: 20px;
     .post-title {
       font-size: 26px;
       font-weight: 400;
