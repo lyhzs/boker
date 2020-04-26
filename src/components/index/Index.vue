@@ -1,33 +1,34 @@
 <template>
-  <div class="main">
-    <div class="list"  v-for="(item,index) in dataArr" :key="index">
-      <h2 class="post-title">{{item.title}}</h2>
-      <div class="post">
-        <span class="meta">
-          <i class="el-icon-data-analysis icon"></i>发表于
-          <i class="details">{{item.timer}}</i>
-        </span>
-        <span class="post-meta-divider">|</span>
-        <span class="meta">
-          <i class="el-icon-pie-chart icon"></i>分类于
-          <i class="details">{{item.classify}}</i>
-        </span>
-        <span class="post-meta-divider">|</span>
-        <span class="meta">
-          <i class="el-icon-notebook-2 icon"></i>本文字数
-          <i class="details">{{item.bodytext.split("").length/1000}}k</i>
-        </span>
-        <span class="post-meta-divider">|</span>
-        <span class="meta">
-          <i class="el-icon-timer icon"></i>阅读时长
-          <i class="details">≈ {{(item.bodytext.split("").length)/(500).toFixed(2)}} 分钟</i>
-        </span>
+ 
+    <div class="main wow pulse" >
+      <div class="list" v-for="(item,index) in dataArr" :key="index">
+        <h2 class="post-title">{{item.title}}</h2>
+        <div class="post">
+          <span class="meta">
+            <i class="el-icon-data-analysis icon"></i>发表于
+            <i class="details">{{item.timer}}</i>
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span class="meta">
+            <i class="el-icon-pie-chart icon"></i>分类于
+            <i class="details">{{item.classify}}</i>
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span class="meta">
+            <i class="el-icon-notebook-2 icon"></i>本文字数
+            <i class="details">{{item.bodytext.split("").length/1000}}k</i>
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span class="meta">
+            <i class="el-icon-timer icon"></i>阅读时长
+            <i class="details">≈ {{(item.bodytext.split("").length)/(500).toFixed(2)}} 分钟</i>
+          </span>
+        </div>
+        <div class="maintext" v-html="item.bodytext"></div>
+        <span class="post-button" @click="todetails(item.id)">阅读全文»</span>
       </div>
-      <div class="maintext" v-html="item.bodytext"></div>
-      <span class="post-button" @click="todetails(item.id)">阅读全文»</span>
     </div>
-          
-  </div>
+
 </template>
 
 <script>
@@ -35,30 +36,30 @@ export default {
   name: "Index",
   data() {
     return {
-      dataArr:[]
+      dataArr: [],
+      active:false
     };
   },
   methods: {
-    todetails(id){
+    todetails(id) {
       this.$router.push({
-        name:"Details",
-        params:{
-          id:id
+        name: "Details",
+        params: {
+          id: id
         }
-      })
+      });
     }
   },
-  mounted(){
-       var _this=this
-       this.$http.get("/look").then(function(res) {
-            // console.log(res)
-           _this.$store.commit("allData",res.data.data)
-            _this.dataArr=res.data.data 
-      });
+  mounted() {
+    var _this = this;
+    this.$http.get("/look").then(function(res) {
+      // console.log(res)
+      _this.$store.commit("allData", res.data.data);
+      _this.dataArr = res.data.data;
+    });
+    //  this.dataArr=this.$store.state.dataArr
   },
-  computed:{
-
-  }
+  computed: {}
 };
 </script>
 
@@ -101,11 +102,12 @@ export default {
     .maintext {
       margin: 0 0 20px 0;
       line-height: 32px;
-      height: 64px;
+      min-height: 56px;
+      max-height: 200px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
     }
     .post-button {

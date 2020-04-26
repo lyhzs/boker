@@ -13,25 +13,18 @@ export default {
   name: "App",
   data() {
     return {
-      activeName: "1",
-      activeName1: "1",
-      trip: "",
-      bite: "",
-      other: "",
-      value1: "",
-      tableData: [],
-      oldtableData:[],
+  
     };
   },
   computed:{
      
   },
   mounted() {
-  //   var _this=this
-  //      this.$http.get("/look").then(function(res) {
-  //        _this.tableData=res.data.data
-  //        _this.oldtableData=res.data.data
-  //     });
+     var _this = this;
+       this.$http.get("/look").then(function(res) {
+         _this.$store.commit("allData", res.data.data);
+  
+    });
    },
   methods: {
 

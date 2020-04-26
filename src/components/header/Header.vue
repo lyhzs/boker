@@ -110,6 +110,7 @@ export default {
 <style scoped lang="less">
 .header {
   position: relative;
+  background-color: rgba(0,0,0,.1);
   .main {
     height: 85px;
     width: 800px;
@@ -183,7 +184,7 @@ export default {
       ul {
         .active {
           color: #000;
-          background: #c39aad;
+          background: #9ccafb;
         }
         width: 650px;
         display: block;
@@ -213,7 +214,7 @@ export default {
           }
           a:hover {
             color: #000;
-            background: #c39aad;
+            background: #9ccafb;
           }
         }
       }

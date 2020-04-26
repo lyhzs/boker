@@ -1,5 +1,5 @@
 <template>
-  <div v-html='this.$store.state.details[0].bodytext' class="details">
+  <div v-html='this.$store.state.details[0].bodytext' class="details wow pulse">
      <!-- {{this.$route.params.id}} -->
       
       <!-- {{data}} -->

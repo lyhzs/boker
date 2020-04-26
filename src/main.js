@@ -13,7 +13,7 @@ import axios from 'axios'
 // 
 import qs from 'qs'
 Vue.prototype.$http=axios
-Vue.prototype.$http.defaults.baseURL ='http://localhost:3000/'  
+Vue.prototype.$http.defaults.baseURL ='http://180.76.151.100:3000/'  
 
 axios.interceptors.request.use(
 	config => {
@@ -176,15 +176,15 @@ var less =require("less")
 Vue.config.productionTip = false
 
 //全局守卫
-router.beforeEach((to,from,next)=>{
-    if(to.path =="/"||to.path=="/issue"||to.path=="/details"||to.path=="/index"){
-        next()
-    }else{
-       alert("暂时只开放首页/发布页面")
-        next("/")
-    }
+// router.beforeEach((to,from,next)=>{
+//     if(to.path =="/"||to.path=="/issue"||to.path=="/details"||to.path=="/index"){
+//         next()
+//     }else{
+//        alert("暂时只开放首页/发布页面")
+//         next("/")
+//     }
    
-})
+// })
 
 
 /* eslint-disable no-new */

@@ -25,10 +25,6 @@ const store = new Vuex.Store({
         },
     },
     getters:{
-     
-        fullInfo(state,getters){
-            return getters.nameInfo+'年龄:'+state.age
-        }  
     }
 })
  

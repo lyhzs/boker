@@ -5,6 +5,8 @@ import Issue from '@/components/issue/Issue'
 import My from '@/components/my/My'
 import About from '@/components/about/About'
 import Details from '@/components/details/Details'
+import Classify from '@/components/classify/Classify'
+import Pigeonhole from '@/components/pigeonhole/Pigeonhole'
 
 Vue.use(Router)
 
@@ -26,14 +28,14 @@ export default new Router({
       // }
     },
     {
-      path: '/my',
-      name: 'My',
-      component: My
+      path: '/classify',
+      name: 'Classify',
+      component: Classify
     },
     {
-      path: '/about',
-      name: 'About',
-      component: About
+      path: '/pigeonhole',
+      name: 'Pigeonhole',
+      component: Pigeonhole
     },
     {
       path: '/details',
