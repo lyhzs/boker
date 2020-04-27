@@ -10,7 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 import axios from 'axios'
 
-// 
+// axios
 import qs from 'qs'
 Vue.prototype.$http=axios
 Vue.prototype.$http.defaults.baseURL ='http://180.76.151.100:3000/'  
@@ -186,7 +186,12 @@ Vue.config.productionTip = false
    
 // })
 
-
+import Myfooter from '@/components/footer/Footer';
+//全局组件（foot）
+Vue.component("Myfooter",Myfooter)
+//全局方法
+import common from '../commonFunction/commonfunction.js'
+Vue.prototype.commom=common
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

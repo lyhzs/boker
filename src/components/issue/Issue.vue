@@ -87,7 +87,7 @@ export default {
       console.log(item);
     },
     submit() {
-      console.log(this.content, 555);
+      // console.log(this.content, 555);
       var _this = this;
       var postData = {
         id: Date.parse(new Date()),
@@ -103,6 +103,8 @@ export default {
             message: "添加成功",
             type: "success"
           });
+
+          //添加成功跳回首页
           _this.$router.push({
             name: "Home"
           });

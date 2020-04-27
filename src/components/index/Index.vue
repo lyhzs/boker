@@ -1,6 +1,14 @@
 <template>
- 
-    <div class="main wow pulse" >
+  <div>
+    <div
+      v-loading="loading"
+      class="loading"
+      element-loading-text="数据加载中"
+      element-loading-background="rgba(0, 0, 0, 0)"
+    >
+      <!-- 请求数据中 -->
+    </div>
+    <div class="main wow pulse" v-show="!loading">
       <div class="list" v-for="(item,index) in dataArr" :key="index">
         <h2 class="post-title">{{item.title}}</h2>
         <div class="post">
@@ -27,8 +35,22 @@
         <div class="maintext" v-html="item.bodytext"></div>
         <span class="post-button" @click="todetails(item.id)">阅读全文»</span>
       </div>
-    </div>
+      <!-- 分页 -->
+      <div class="togglepg">
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          :page-size="5"
+          :total="allDataArr.length"
+          @current-change="pageChange"
+          @prev-click="pagePrev"
+          @next-click="pageNext"
+        ></el-pagination>
+      </div>
 
+        
+    </div>
+  </div>
 </template>
 
 <script>
@@ -36,8 +58,11 @@ export default {
   name: "Index",
   data() {
     return {
-      dataArr: [],
-      active:false
+      // allDataArr: []所有数据,
+      // dataArr:[] 首页渲染的5条数据,
+      active: false,
+      // loading:true 数据加载慢时出现的加载圈,
+      flag: 1
     };
   },
   methods: {
@@ -48,18 +73,40 @@ export default {
           id: id
         }
       });
+    },
+    pageChange(val) {
+      this.flag = val;
+
+    },
+    pagePrev(val) {
+      this.flag = val;
+
+    },
+    pageNext(val) {
+      this.flag = val;
+
     }
   },
   mounted() {
     var _this = this;
     this.$http.get("/look").then(function(res) {
-      // console.log(res)
       _this.$store.commit("allData", res.data.data);
-      _this.dataArr = res.data.data;
     });
-    //  this.dataArr=this.$store.state.dataArr
+
   },
-  computed: {}
+  computed: {
+    allDataArr() {
+      return this.$store.state.dataArr;
+    },
+    dataArr() {
+      
+      return this.allDataArr.slice((this.flag - 1) * 5, this.flag * 5);
+    },
+    loading() {
+      return this.allDataArr.length > 0 ? false : true;
+      // return true
+    }
+  }
 };
 </script>
 
@@ -118,6 +165,18 @@ export default {
       font-size: 16px;
       cursor: pointer;
     }
+  }
+  .togglepg {
+    display: block;
+    margin: 0 auto;
+  }
+  .loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
   }
 }
 </style>

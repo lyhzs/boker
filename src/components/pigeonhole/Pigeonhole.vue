@@ -4,7 +4,7 @@
       <el-timeline>
         <el-timeline-item :timestamp="item.timer" placement="top" v-for="(item,index) in dataArr" :key="index" >
           <el-card >
-            <div @click="todetails(item.id)">
+            <div>
             <h4>更新 {{item.title}} </h4>
             <p> 提交于 {{item.timer}}</p>
             </div>
@@ -25,16 +25,16 @@ export default {
     };
   },
   methods: {
-     todetails(id) {
-       console.log(123456);
+    //  todetails(id) {
+    //    console.log(123456);
        
-      this.$router.push({
-        name: "Details",
-        params: {
-          id: id
-        }
-      });
-    }
+    //   this.$router.push({
+    //     name: "Details",
+    //     params: {
+    //       id: id
+    //     }
+    //   });
+    // }
   },
   mounted() {
     this.dataArr=this.$store.state.dataArr

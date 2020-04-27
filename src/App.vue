@@ -23,7 +23,8 @@ export default {
      var _this = this;
        this.$http.get("/look").then(function(res) {
          _this.$store.commit("allData", res.data.data);
-  
+          // console.log(_this.$store.state.dataArr);
+
     });
    },
   methods: {
@@ -49,5 +50,7 @@ table { border-collapse:collapse; }
 html {overflow-y: scroll;}
 .clearfix:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
 .clearfix { *zoom:1; }
-
+.el-collapse-item__header,.el-collapse-item__wrap{
+    background:transparent!important
+  }
 </style>

@@ -23,8 +23,37 @@ const store = new Vuex.Store({
                return item.id==data    
             })
         },
+ 
     },
     getters:{
+        classify(state){
+            // return state.dataArr
+            var allify=[]
+            state.dataArr.map(item=>{
+                allify.push(item.classify)
+            })
+
+            for(var i=0; i<allify.length; i++){
+                for(var j=i+1; j<allify.length; j++){
+                    if(allify[i]==allify[j]){         //第一个等同于第二个，splice方法删除第二个
+                        allify.splice(j,1);
+                        j--;
+                    }
+                }
+            }
+
+            var newsarr=[]
+             for(var z=0;z<allify.length; z++){
+                 newsarr.push( {
+                   title:  allify[z],
+                   arr: state.dataArr.filter(item=>item.classify==allify[z])
+                 }  )
+             }
+
+            
+
+             return newsarr
+        }
     }
 })
  
