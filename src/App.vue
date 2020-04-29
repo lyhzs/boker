@@ -21,11 +21,7 @@ export default {
   },
   mounted() {
      var _this = this;
-       this.$http.get("/look").then(function(res) {
-         _this.$store.commit("allData", res.data.data);
-          // console.log(_this.$store.state.dataArr);
-
-    });
+     this.$http.get("/look").then(function(res) { _this.$store.commit("allData", res.data.data); });
    },
   methods: {
 
@@ -53,4 +49,37 @@ html {overflow-y: scroll;}
 .el-collapse-item__header,.el-collapse-item__wrap{
     background:transparent!important
   }
+
+::-webkit-scrollbar{
+    width: 3px;
+    height: 8px;
+    background-color: #515a6e;
+    -webkit-transition: background-color .3s ease-in-out;
+    transition: background-color .3s ease-in-out;
+}
+::-webkit-scrollbar:hover{
+    background-color: #d1d1d1;
+}
+::-webkit-scrollbar-thumb{
+    background-color: rgb(23, 35, 61, 0.6);
+    height: 50px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    border-right: 1px solid #fff;
+    border-left: 1px solid #fff;
+    -webkit-transition: background-color .3s ease-in-out;
+    transition: background-color .3s ease-in-out;
+}
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active{
+    background-color:rgb(23, 35, 61, 0.8);
+    border-right: 1px solid #f1f1f1;
+    border-left: 1px solid #f1f1f1;
+}
+::-webkit-scrollbar-track{
+    background-color:#fff;
+}
+::-webkit-scrollbar-track:hover{
+    background-color:#fff;
+}
 </style>

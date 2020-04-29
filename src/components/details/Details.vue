@@ -1,5 +1,5 @@
 <template>
-  <div v-html='this.$store.state.details[0].bodytext' class="details wow pulse">
+  <div v-html='deta' class="details wow pulse">
      <!-- {{this.$route.params.id}} -->
       
       <!-- {{data}} -->
@@ -17,13 +17,17 @@ export default {
     };
   },
   methods: {
-
+    
   },
   mounted() {
-    this.$store.commit("lookdetails",this.$route.params.id)
-    // console.log(this.$store.state.details[0]);
-    
-  }
+      this.$store.commit("lookdetails",this.$route.params.id)
+  },
+  computed: {
+    deta(){
+        if(this.$store.state.details.length!=0){return  this.$store.state.details[0].bodytext}
+      
+    }
+  },
 };
 </script>
 

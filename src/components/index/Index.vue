@@ -92,11 +92,11 @@ export default {
     this.$http.get("/look").then(function(res) {
       _this.$store.commit("allData", res.data.data);
     });
-
+    
   },
   computed: {
     allDataArr() {
-      return this.$store.state.dataArr;
+      return this.$store.getters.sortArr;
     },
     dataArr() {
       

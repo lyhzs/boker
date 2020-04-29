@@ -80,7 +80,7 @@
           />
         </svg>
       </a>
-      <i class="el-icon-collection-tag sc"></i>
+      <i class="el-icon-collection-tag sc" @click="_addFavorite"></i>
     </div>
 
 </template>
@@ -101,6 +101,40 @@ export default {
   methods: {
     backHome() {
       this.$router.push("/");
+    },
+    _addFavorite() {
+      var url = window.location;
+      var title = document.title;
+      var ua = navigator.userAgent.toLowerCase();
+      var _this=this
+      if (ua.indexOf("360se") > -1) {
+           _this.$notify.error({
+            title: "添加失败",
+            message: "您的浏览器不支持,请按 Ctrl+D 手动收藏!"
+          });
+      }
+      else if (ua.indexOf("msie 8") > -1) {
+          window.external.AddToFavoritesBar(url, title); //IE8
+      }
+      else if (document.all) {//IE类浏览器
+        try{
+         window.external.addFavorite(url, title);
+        }catch(e){
+          _this.$notify.error({
+            title: "添加失败",
+            message: "您的浏览器不支持,请按 Ctrl+D 手动收藏!"
+          });
+        }
+      }
+      else if (window.sidebar) {//firfox等浏览器；
+          window.sidebar.addPanel(title, url, "");
+      }
+      else {
+           _this.$notify.error({
+            title: "添加失败",
+            message: "您的浏览器不支持,请按 Ctrl+D 手动收藏!"
+          });
+      }
     }
   }
 };
@@ -249,11 +283,15 @@ export default {
     }
   }
   .sc {
-    position: absolute;
+    position: fixed;
     font-size: 26px !important;
     top: -4px;
     left: 20px;
     color: #222;
+    cursor: pointer;
+  }
+  .sc:hover {
+    color: red;
   }
 }
 </style>

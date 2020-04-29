@@ -67,6 +67,11 @@ export default {
     };
   },
   methods: {
+   createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
     querySearch(queryString, cb) {
       var restaurants = this.restaurants;
       var results = queryString
@@ -92,10 +97,12 @@ export default {
       var postData = {
         id: Date.parse(new Date()),
         title: this.title,
-        classify: this.classify,
-        bodytext: this.content,
+        classify: this.classify, 
+        bodytext:this.content,
         timer: this.timer
       };
+      console.log(postData.bodytext);
+      
       this.$http.post("/add", postData).then(function(res) {
         if (res.data.state) {
           _this.$notify({

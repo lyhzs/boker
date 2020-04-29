@@ -43,6 +43,11 @@ export default new Router({
       path: '/interaction',
       name: 'Interaction',
       component: ()=>import('@/components/interaction/Interaction')
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: ()=>import('@/components/search/Search')
     }
   ]
 })
