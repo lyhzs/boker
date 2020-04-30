@@ -1,5 +1,5 @@
 <template>
-  <div class="wow pulse">
+  <div>
       <!-- 标题 -->
       <div>
         <h3 class="title">文章标题：</h3>
@@ -94,14 +94,20 @@ export default {
     submit() {
       // console.log(this.content, 555);
       var _this = this;
+
+    //  this.content.replace(/\"/g,"lyhts")
+    //  this.content.replace(/\'/g,"lyhtss")
+    //  this.content.replace(/\'/g,"lyhtss")
+
+
       var postData = {
         id: Date.parse(new Date()),
         title: this.title,
         classify: this.classify, 
-        bodytext:this.content,
+        bodytext:this.content.replace(/[\\"']/g, '\\$&'),
         timer: this.timer
       };
-      console.log(postData.bodytext);
+      // console.log(postData.bodytext);
       
       this.$http.post("/add", postData).then(function(res) {
         if (res.data.state) {
@@ -110,7 +116,8 @@ export default {
             message: "添加成功",
             type: "success"
           });
-
+           //添加成功重新查看数据
+         _this.$http.get("/look").then(function(res) {_this.$store.commit("allData", res.data.data);});
           //添加成功跳回首页
           _this.$router.push({
             name: "Home"
@@ -149,8 +156,6 @@ export default {
   },
   mounted() {
     this.restaurants = this.loadAll();
-     
-    //  this.open()
   }
 };
 </script>

@@ -17,10 +17,13 @@ export default {
     };
   },
   methods: {
-    
+     
   },
   mounted() {
       this.$store.commit("lookdetails",this.$route.params.id)
+     if(this.$store.state.details.length==0){
+      this.$router.push("/search")
+    }
   },
   computed: {
     deta(){

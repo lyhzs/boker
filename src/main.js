@@ -13,8 +13,8 @@ import axios from 'axios'
 // axios
 import qs from 'qs'
 Vue.prototype.$http=axios
-Vue.prototype.$http.defaults.baseURL ='http://180.76.151.100:3000/'  
-// Vue.prototype.$http.defaults.baseURL ='http://localhost:5000/'  
+ Vue.prototype.$http.defaults.baseURL ='http://180.76.151.100:3000/'  
+//Vue.prototype.$http.defaults.baseURL ='http://localhost:3000/'  
 
 axios.interceptors.request.use(
 	config => {
@@ -186,6 +186,11 @@ Vue.config.productionTip = false
 //     }
    
 // })
+
+//引入wow.js
+import 'animate.css'
+
+
 
 import Myfooter from '@/components/footer/Footer';
 //全局组件（foot）

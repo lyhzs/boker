@@ -23,7 +23,7 @@ export default {
   data() {
     return {
      activeName: '1',
-     dataArr:[]
+    //  dataArr:[]
     };
   },
   methods: {
@@ -37,9 +37,14 @@ export default {
     }
   },
   mounted() {
-      console.log( this.$store.getters.classify )
-      this.dataArr=this.$store.getters.classify
-  }
+      // console.log( this.$store.getters.classify )
+      // this.dataArr=this.$store.getters.classify
+  },
+  computed: {
+    dataArr(){
+      return this.$store.getters.classify
+    }
+  },
 };
 </script>
 

@@ -49,7 +49,7 @@ module.exports = {
      * Source Maps
      */
 
-    productionSourceMap: true,
+    productionSourceMap: true, //是否允许查看源码 
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 

@@ -5,7 +5,12 @@
     <div class="home">
       <Header></Header>
       <div class="main">
-        <router-view></router-view>
+        <!-- 移动端app左右切换效果 -->
+         <!-- <transition :name="transitionName"> -->
+         <transition >
+             <router-view></router-view>
+         </transition>
+       
       </div>
     </div> 
     <!-- 底部 永远固定在底部 -->
@@ -18,13 +23,28 @@
 
 <script>
 import Header from "@/components/header/Header";
+
 export default {
   name: "Home",
   data() {
     return {
-      msg: "Welcome to Your Vue.js App"
+      msg: "Welcome to Your Vue.js App",
+      transitionName: ''
     };
   },
+  mounted(){
+
+  },
+  //  watch: {
+    //通过监听路由meta 实现左右切换特效 适用于手机app端效果
+  //   $route (to, from) {
+  //     if (to.meta.index > from.meta.index) {
+  //       this.transitionName = 'slide-left'
+  //     } else {
+  //       this.transitionName = 'slide-right'
+  //     }
+  //   }
+  // },
   components: {
     Header
   }

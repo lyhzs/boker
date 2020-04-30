@@ -54,15 +54,16 @@
 </template>
 
 <script>
+import {WOW} from 'wowjs'
 export default {
   name: "Index",
   data() {
     return {
       // allDataArr: []所有数据,
       // dataArr:[] 首页渲染的5条数据,
-      active: false,
+    
       // loading:true 数据加载慢时出现的加载圈,
-      flag: 1
+      flag: 1//分页标识
     };
   },
   methods: {
@@ -88,14 +89,19 @@ export default {
     }
   },
   mounted() {
-    var _this = this;
-    this.$http.get("/look").then(function(res) {
-      _this.$store.commit("allData", res.data.data);
-    });
-    
+      this.$nextTick(() => {
+            let wow = new WOW({
+                live:false
+            })
+            wow.init()
+        })
+  
+   
   },
   computed: {
     allDataArr() {
+        // console.log(this.$store.getters.sortArr);
+        
       return this.$store.getters.sortArr;
     },
     dataArr() {

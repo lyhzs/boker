@@ -22,7 +22,6 @@ export default {
   name: "Search",
   data() {
     return {
-      dataArr: [],
       input:""
     };
   },
@@ -37,9 +36,12 @@ export default {
     }
   },
   mounted() {
-      this.dataArr=this.$store.state.dataArr
+      
   },
   computed: {
+    dataArr(){
+      return this.$store.getters.sortArr
+    },
     newdataArr(){
       return this.dataArr.filter(item=>item.title.indexOf(this.input)!=-1)
     }
