@@ -1,8 +1,13 @@
 <template>
-  <div v-html='deta' class="details wow pulse">
+  <div>
+      <div class="title">
+        {{detatitle}}
+      </div>
+    <div v-html='deta' class="details wow pulse">
      <!-- {{this.$route.params.id}} -->
       
       <!-- {{data}} -->
+  </div>
   </div>
 </template>
 
@@ -27,8 +32,10 @@ export default {
   },
   computed: {
     deta(){
-        if(this.$store.state.details.length!=0){return  this.$store.state.details[0].bodytext}
-      
+        if(this.$store.state.details.length!=0){return  this.$store.state.details[0].bodytext}  
+    },
+    detatitle(){
+        if(this.$store.state.details.length!=0){return  this.$store.state.details[0].title}  
     }
   },
 };
@@ -38,5 +45,12 @@ export default {
 <style scoped lang="less">
   .details{
     margin-top: 15px
+  }
+  .title{
+    text-align: center;
+    padding: 10px;
+    font-size: 25px;
+    margin: 20px;
+    font-weight: bold
   }
 </style>
