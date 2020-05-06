@@ -100,7 +100,7 @@ export default {
   },
   methods: {
     backHome() {
-      this.$router.push("/");
+      this.$router.push("/").catch(data => {  });
     },
     _addFavorite() {
       var url = window.location;

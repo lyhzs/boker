@@ -4,7 +4,7 @@
            互动
         </div>
         <div class="img">
-           <img src="static/images/liu2.webp"/>
+           <img src="static/images/liu1.gif"/>
         </div>
           
     </div>
