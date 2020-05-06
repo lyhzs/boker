@@ -59,15 +59,24 @@ export default {
       var _this = this;
 
     //暂时中止删除
-       _this.$notify({
-             title: "删除功能检测未完善",
-             message: "终止操作",
-            type: "warning"
-          });
-    return
+    //    _this.$notify({
+    //          title: "删除功能检测未完善",
+    //          message: "终止操作",
+    //         type: "warning"
+    //       });
+    // return
 
-      this.$http.post("/del",postid).then(function(res) {
-        
+     
+    if(this.$store.state.islogin){
+       //登陆成功 权限功能未开放
+      //二次确认
+       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+
+       this.$http.post("/del",postid).then(function(res) {
         if (res.data.status) {
           _this.$notify({
             title: "成功",
@@ -76,7 +85,7 @@ export default {
           });
 
           _this.$http.get("/look").then(function(res) { _this.$store.commit("allData", res.data.data); });
-          _this.dataArr = this.$store.state.dataArr;
+        
         } else {
           _this.$notify.error({
             title: "错误",
@@ -84,6 +93,24 @@ export default {
           });
         }
       });
+        }).catch(() => {
+        //取消删除
+          this.$notify.error({
+            title: "错误",
+            message: "取消删除"
+          });
+
+        });
+    }else{
+    //登陆失败 权限功能未开放
+         _this.$notify({
+             title: "删除失败",
+             message: "终止操作",
+            type: "warning"
+          });
+        this.$router.push({name:"Login"})
+
+    }
    },
   },
   mounted() {

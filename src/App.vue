@@ -195,4 +195,12 @@ html {
   transform: translate(100%, 0);
   transition-timing-function: ease-in;
 }
+.fade-enter-active, .fade-leave-active{
+   transition: all 0.5s ease     
+}
+  
+.fade-enter, .fade-leave-active{
+  opacity: 0 
+}
+
 </style>

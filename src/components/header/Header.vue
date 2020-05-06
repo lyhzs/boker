@@ -14,11 +14,6 @@
               </router-link>
             </li>
             <li>
-              <router-link :to="{path:'/label'}">
-                <i class="el-icon-s-management"></i>标签
-              </router-link>
-            </li>
-            <li>
               <router-link :to="{path:'/classify'}">
                 <i class="el-icon-s-ticket"></i>分类
               </router-link>
@@ -31,6 +26,11 @@
             <li>
               <router-link :to="{path:'/interaction'}">
                 <i class="el-icon-s-promotion"></i>互动
+              </router-link>
+            </li>
+             <li>
+              <router-link :to="{path:'/login'}">
+                <i class="el-icon-s-check"></i>权限
               </router-link>
             </li>
             <li>

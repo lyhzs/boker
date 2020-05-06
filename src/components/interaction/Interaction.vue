@@ -1,6 +1,12 @@
 <template>
     <div>
-        互动
+        <div class="title">
+           互动
+        </div>
+        <div class="img">
+           <img src="static/images/liu2.webp"/>
+        </div>
+          
     </div>
 
 </template>
@@ -23,5 +29,15 @@ export default {
 
 
 <style scoped lang="less">
-
+  .title{
+    font-size:26px;
+    text-align:center;
+    padding:20px
+  }
+  .img{
+    img{
+    display: block;
+    margin:20px auto;
+    }
+  }
 </style>

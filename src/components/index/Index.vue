@@ -120,8 +120,9 @@ export default {
 <style scoped lang="less">
 .main {
   .list {
-    padding: 5px 25px 25px;
-    margin-bottom: 20px;
+    padding: 25px 25px 25px;
+    margin: 20px 0;
+    box-shadow:0 0 5px rgba(202,203,203,.8);
     .post-title {
       font-size: 26px;
       font-weight: 400;

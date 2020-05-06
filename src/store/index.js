@@ -28,9 +28,9 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state:{
         //存放的键值对就是所要管理的状态
-        dataArr:[],
-        age:15,
-        details:[]
+        dataArr:[],//所有文章详情数据
+        details:[],//details 返回详情页具体哪篇文章
+        islogin:false,//登录状态
     },
     mutations:{
         //首页加载请求数据
@@ -41,6 +41,10 @@ const store = new Vuex.Store({
             state.details =state.dataArr.filter((item)=>{
                return item.id==data    
             })
+        },
+        updateLogin(state,data){
+            state.islogin = data
+             
         },
  
     },

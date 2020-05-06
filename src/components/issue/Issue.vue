@@ -92,23 +92,24 @@ export default {
       console.log(item);
     },
     submit() {
-      // console.log(this.content, 555);
+
       var _this = this;
-
-    //  this.content.replace(/\"/g,"lyhts")
-    //  this.content.replace(/\'/g,"lyhtss")
-    //  this.content.replace(/\'/g,"lyhtss")
-
+      if(!this.$store.state.islogin){
+           this.$notify.error({
+            message:'请先登录',
+            position: 'top-right'
+          });      
+          this.$router.push({ name: "Login"});
+        return
+      }
 
       var postData = {
         id: Date.parse(new Date()),
         title: this.title,
         classify: this.classify, 
-        bodytext:this.content.replace(/[\\"']/g, '\\$&'),
+        bodytext:this.content.replace(/[\\"']/g, '\\$&'),//转义 存到数据库中
         timer: this.timer
       };
-      // console.log(postData.bodytext);
-      
       this.$http.post("/add", postData).then(function(res) {
         if (res.data.state) {
           _this.$notify({
@@ -129,6 +130,8 @@ export default {
           });
         }
       });
+
+
     },
     updateData: function(data) {
       // sync content to component

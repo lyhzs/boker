@@ -3,43 +3,65 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>李宇航的博客</title>
+    <title>Mr.li</title>
     <!-- 鼠标点击出现心的js -->
     <script src="static/js/clicklove.js"></script>
     <!-- 富文本编辑 -->
-    <script src="static/js/vue-html5-editor.js"></script>
-    <link href="static/css/font-awesome.min.css" rel="stylesheet">
-   <!-- wow效果 -->
-   <link href="static/css/animate.css" rel="stylesheet">
-   <script src="static/js/wow.js"></script>
-   <script>
-      new WOW().init();
-   </script>
+    <link href="static/css/font-awesome.min.css" rel="stylesheet"> 
   </head>
   <body>
     <div id="app"></div>
-  
+      
   </body>
   <!-- 鼠标点击更改背景的js -->
   <script id="ribbon" size="300" alpha="0.1" zindex="-1" src="static/js/canvas-ribbon.js"></script>
    <!-- 鼠标滑动页面玩法 -->
-  <!-- <script color="255,0,255" opacity="0.7" zindex="-1" count="140" src="static/js/canvas-nest.min.js"></script> -->
+  <script color="255,0,255" opacity="0.7" zindex="-1" count="140" src="static/js/canvas-nest.min.js"></script> 
 
   <!-- 看板娘 -->
-   <script type="text/javascript" charset="utf-8" src="static/js/L2Dwidget.min.js">
-  </script> 
-  <script type="text/javascript" charset="utf-8" src="static/js/L2Dwidget.0.min.js">
-  </script> 
-  <script type="text/javascript">
-      L2Dwidget.init({
-          "display": {
-              "superSample": 2,
-              "width": 200,
-              "height": 400,
-              "position": "left",
-              "hOffset": 0,
-              "vOffset": 0
-          }
+  <script>
+    // 注意：live2d_path 参数应使用绝对路径
+  const live2d_path = "https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
+  //const live2d_path = "/live2d-widget/";
+  
+  // 封装异步加载资源的方法
+  function loadExternalResource(url, type) {
+    return new Promise((resolve, reject) => {
+      let tag;
+      if (type === "css") {
+        tag = document.createElement("link");
+        tag.rel = "stylesheet";
+        tag.href = url;
+      }
+      else if (type === "js") {
+        tag = document.createElement("script");
+        tag.src = url;
+      }
+      if (tag) {
+        tag.onload = () => resolve(url);
+        tag.onerror = () => reject(url);
+        document.head.appendChild(tag);
+      }
+    });
+  }
+  // 加载 waifu.css live2d.min.js waifu-tips.js
+    Promise.all([
+      loadExternalResource(live2d_path + "waifu.css", "css"),
+      loadExternalResource(live2d_path + "live2d.min.js", "js"),
+      loadExternalResource(live2d_path + "waifu-tips.js", "js")
+    ]).then(() => {
+      initWidget({
+        waifuPath: live2d_path + "waifu-tips.json",
+        apiPath: "https://live2d.fghrsh.net/api/",
+        //cdnPath: "https://cdn.jsdelivr.net/gh/fghrsh/live2d_api/"
       });
-  </script> 
+    });
+
+  // initWidget 第一个参数为 waifu-tips.json 的路径，第二个参数为 API 地址
+  // API 后端可自行搭建，参考 https://github.com/fghrsh/live2d_api
+  // 初始化看板娘会自动加载指定目录下的 waifu-tips.json
+    </script>
   </html>
+
+
+  

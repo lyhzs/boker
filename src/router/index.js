@@ -48,6 +48,16 @@ export default new Router({
       path: '/search',
       name: 'Search',
       component: ()=>import('@/components/search/Search')
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: ()=>import('@/components/login/Login')
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: ()=>import('@/components/about/About')
     }
   ]
 })
