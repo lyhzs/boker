@@ -7,6 +7,9 @@ import store from './store'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import { Notification } from 'element-ui';
+Vue.prototype.$Notification = Notification;
+
 
 import axios from 'axios'
 
@@ -177,15 +180,24 @@ var less =require("less")
 Vue.config.productionTip = false
 
 //全局守卫
-// router.beforeEach((to,from,next)=>{
-//     if(to.path =="/"||to.path=="/issue"||to.path=="/details"||to.path=="/index"){
-//         next()
-//     }else{
-//        alert("暂时只开放首页/发布页面")
-//         next("/")
-//     }
-   
-// })
+router.beforeEach((to,from,next)=>{
+
+//   to.path=="/issue"? store.state.islogin?next():next("/Login") : next()
+    if(to.path=="/issue"){
+        if(store.state.islogin){next()}else{
+            Notification({
+                title: '警告',
+                message: '用户未登录',
+                type: 'warning'
+              });
+
+            next("/Login")
+        }
+    }else{
+        next()
+    }
+  
+})
 
 //引入wow.js
 import 'animate.css'

@@ -1,6 +1,7 @@
 <template>
   <div>
     <div
+      v-if="loading"
       v-loading="loading"
       class="loading"
       element-loading-text="数据加载中"
@@ -157,7 +158,7 @@ export default {
       margin: 0 0 20px 0;
       line-height: 32px;
       min-height: 56px;
-      max-height: 200px;
+       max-height: 200px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;

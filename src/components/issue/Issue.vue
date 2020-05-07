@@ -81,12 +81,7 @@ export default {
       cb(results);
     },
     loadAll() {
-      return [
-        { value: "css" },
-        { value: "html" },
-        { value: "js" },
-        { value: "vue" }
-      ];
+           return this.$store.getters.issueArr
     },
     handleSelect(item) {
       console.log(item);

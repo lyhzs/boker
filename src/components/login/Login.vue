@@ -1,7 +1,7 @@
 ﻿<template>
   <div >
-    <!-- 登录状态 -->
-    <div class="islogin">
+    <!-- 未登录状态 -->
+    <div class="islogin" v-if="!islogin">
        <!-- 登录 -->
       <div  class="login" v-show='login'> 
 
@@ -45,9 +45,33 @@
       
 
     </div>
-    <!-- 未登录状态 -->
-    <div>
+    <!-- 登录状态 -->
+    <div v-if="islogin">
+        <div class="header">
+            <div>
+              欢迎登录：{{isuser}}
+            </div>
+            <div>
+              在线状态：
+              <el-switch
+                v-model="islogin"
+                active-color="#13ce66"
+                inactive-color="#ff4949"
+                @change="leavelogin">
+              </el-switch>
+            </div>
+            <div>
+              权限等级：3
+            </div>
+        </div> 
+        <!-- 分割线  -->
+    <el-divider></el-divider>
 
+      <!-- 活跃记录 -->
+      <div class="newdate">
+        <el-calendar v-model="value">
+        </el-calendar>
+      </div>
     </div>
   </div>
 </template>
@@ -60,7 +84,8 @@ export default {
       input1: "",
       input2: "",
       input3: "",
-      login:true
+      login:true,//登录注册切换
+value: new Date()
     };
   },
   methods: {
@@ -81,12 +106,11 @@ export default {
             message: "登录成功",
             type: "success"
           });
+        
             //更新vuex中登录状态
            _this.$store.commit("updateLogin",res.data.state)
-            //登录成功 跳回首页
-          _this.$router.push({
-            name: "Home"
-          });
+           _this.$store.commit("updateuser",_this.input1)
+
 
         } else {
         // 登陆失败
@@ -108,16 +132,35 @@ export default {
             type: "warning"
           });
           this.login=true
+    },
+    leavelogin(){
+       this.$confirm('确认退出?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$store.commit("updateLogin",false)
+          this.$notify({
+            type: 'success',
+            message: '退出成功!'
+          });
+          this.$router.push("/").catch(data => {  });
+        }).catch(() => {
+          this.$notify({
+            type: 'info',
+            message: '已取消退出'
+          });          
+        });
     }
   },
   mounted() {},
   computed: {
-    dataArr() {
-      return this.$store.getters.sortArr;
-    },
-    newdataArr() {
-      return this.dataArr.filter(item => item.title.indexOf(this.input) != -1);
-    }
+      islogin(){
+        return this.$store.state.islogin
+      },
+      isuser(){
+        return this.$store.state.isuser
+      }
   }
 };
 </script>
@@ -149,5 +192,15 @@ export default {
  
     }
   }
+}
+.header{
+  display: flex;
+    div{
+     flex: 1;
+     text-align: center
+  }
+}
+.newdate{
+  margin: 30px auto 10px
 }
 </style>
