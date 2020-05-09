@@ -103,7 +103,7 @@ export default {
         title: this.title==""?"未命名标题":this.title,
         classify: this.classify==""?"未命名分类":this.classify, 
         bodytext:this.content.replace(/[\\"']/g, '\\$&'),//转义 存到数据库中
-        timer: this.timer
+        timer: this.timer==""?new Date():this.classify
       };
       this.$http.post("/add", postData).then(function(res) {
         if (res.data.state) {
