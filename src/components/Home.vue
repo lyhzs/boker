@@ -7,7 +7,7 @@
       <div class="main">
         <!-- 移动端app左右切换效果 -->
         <!-- <transition :name="transitionName"> -->
-        <transition>
+        <transition >
           <router-view></router-view>
         </transition>
       </div>
@@ -35,7 +35,7 @@
 
 <script>
 import Header from "@/components/header/Header";
-
+import {WOW} from 'wowjs'
 export default {
   name: "Home",
   data() {
@@ -69,6 +69,12 @@ export default {
         _this.scroll = false;
       }
     };
+      this.$nextTick(() => {
+            let wow = new WOW({
+                live:false
+            })
+            wow.init()
+        })
   },
   //  watch: {
   //通过监听路由meta 实现左右切换特效 适用于手机app端效果

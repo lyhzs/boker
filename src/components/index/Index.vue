@@ -9,7 +9,9 @@
     >
       <!-- 请求数据中 -->
     </div>
-    <div class="main wow pulse" v-show="!loading">
+
+    <transition name="fade">
+       <div class="main" v-show="!loading">
       <div class="list" v-for="(item,index) in dataArr" :key="index">
         <h2 class="post-title">{{item.title}}</h2>
         <div class="post">
@@ -47,24 +49,23 @@
           @prev-click="pagePrev"
           @next-click="pageNext"
         ></el-pagination>
-      </div>
-
-        
+      </div> 
     </div>
+
+    </transition>
   </div>
 </template>
 
 <script>
-import {WOW} from 'wowjs'
 export default {
   name: "Index",
   data() {
     return {
       // allDataArr: []所有数据,
       // dataArr:[] 首页渲染的5条数据,
-    
+
       // loading:true 数据加载慢时出现的加载圈,
-      flag: 1//分页标识
+      flag: 1 //分页标识
     };
   },
   methods: {
@@ -78,35 +79,22 @@ export default {
     },
     pageChange(val) {
       this.flag = val;
-
     },
     pagePrev(val) {
       this.flag = val;
-
     },
     pageNext(val) {
       this.flag = val;
-
     }
   },
-  mounted() {
-      this.$nextTick(() => {
-            let wow = new WOW({
-                live:false
-            })
-            wow.init()
-        })
-  
-   
-  },
+  mounted() {},
   computed: {
     allDataArr() {
-        // console.log(this.$store.getters.sortArr);
-        
+      // console.log(this.$store.getters.sortArr);
+
       return this.$store.getters.sortArr;
     },
     dataArr() {
-      
       return this.allDataArr.slice((this.flag - 1) * 5, this.flag * 5);
     },
     loading() {
@@ -123,7 +111,7 @@ export default {
   .list {
     padding: 25px 25px 25px;
     margin: 20px 0;
-    box-shadow:0 0 5px rgba(202,203,203,.8);
+    box-shadow: 0 0 5px rgba(202, 203, 203, 0.8);
     .post-title {
       font-size: 26px;
       font-weight: 400;
@@ -158,7 +146,7 @@ export default {
       margin: 0 0 20px 0;
       line-height: 32px;
       min-height: 56px;
-       max-height: 200px;
+      max-height: 200px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;

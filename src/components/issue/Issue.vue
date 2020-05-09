@@ -100,8 +100,8 @@ export default {
 
       var postData = {
         id: Date.parse(new Date()),
-        title: this.title,
-        classify: this.classify, 
+        title: this.title==""?"未命名标题":this.title,
+        classify: this.classify==""?"未命名分类":this.classify, 
         bodytext:this.content.replace(/[\\"']/g, '\\$&'),//转义 存到数据库中
         timer: this.timer
       };
@@ -112,8 +112,12 @@ export default {
             message: "添加成功",
             type: "success"
           });
+          //添加成功清除本地localstore
+          localStorage.removeItem('temporary');
            //添加成功重新查看数据
          _this.$http.get("/look").then(function(res) {_this.$store.commit("allData", res.data.data);});
+         //清空content内容
+         _this.content=""
           //添加成功跳回首页
           _this.$router.push({
             name: "Home"
@@ -154,7 +158,32 @@ export default {
   },
   mounted() {
     this.restaurants = this.loadAll();
+    if(localStorage.getItem('temporary')){
+      this.content=localStorage.getItem('temporary')
+    }
+  },
+  beforeRouteLeave(to, form, next) {
+    // 判读文档是否有内容
+   if(this.content!=""){
+      this.$confirm('是否保留已编辑的文档?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          //保存到本地localStorage中
+           localStorage.setItem('temporary',this.content);
+           next()
+        }).catch(() => {
+        //取消保留 直接离开
+           localStorage.removeItem('temporary');
+           next()
+        });
+   }else{
+      next()
+   }
+   
   }
+
 };
 </script>
 

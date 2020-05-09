@@ -2,6 +2,12 @@
   <div>
     <h3>博客说明</h3>
       <el-timeline>
+        <el-timeline-item timestamp="2020/5/09" placement="top">
+          <el-card>
+            <h4> 优化发布页逻辑</h4>
+            <p>保存文章编辑状态,退出时询问等页面完善</p>
+          </el-card>
+        </el-timeline-item>
         <el-timeline-item timestamp="2020/5/07" placement="top">
           <el-card>
             <h4> 优化权限等页面</h4>
