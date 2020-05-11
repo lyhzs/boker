@@ -1,25 +1,30 @@
 ﻿<template>
   <div>
     <div class="block">
-      <el-timeline>
-        <el-timeline-item
-          :timestamp="item.timer"
-          placement="top"
-          v-for="(item,index) in dataArr"
-          :key="index"
-          class="box"
-        >
-          <el-card class="warp">
-            <div class="list">
-              <h4>更新 {{item.title}}</h4>
-              <p>提交于 {{item.timer}}</p> 
-            </div>
-             <div class="del" @click="del(item.id)">
-                删除
-            </div>
-          </el-card>
-        </el-timeline-item>
-      </el-timeline>
+
+        <div class="list" v-for="(itemdataArr,index) in dataArr" :key="index"> 
+          <h2>{{itemdataArr.title}}</h2>
+                <el-timeline>
+                  <el-timeline-item
+                    :timestamp="item.timer"
+                    placement="top"
+                    v-for="(item,index1) in itemdataArr.data"
+                    :key="index1"
+                    class="box"
+                  >
+                    <el-card class="warp">
+                      <div class="list">
+                        <h4>更新 {{item.title}}</h4>
+                        <p>提交于 {{item.timer}}</p> 
+                      </div>
+                      <div class="del" @click="del(item.id)">
+                          删除
+                      </div>
+                    </el-card>
+                  </el-timeline-item>
+              </el-timeline>
+        </div>
+
     </div>
   </div>
 </template>
@@ -118,7 +123,37 @@ export default {
   },
   computed: {
     dataArr(){
-      return this.$store.getters.sortArr;
+        //  console.log(this.$store.getters.sortArr)
+        var oldarr=this.$store.getters.sortArr
+        var yeararr=[]
+        var newarr=[] //同年月的数据
+
+         // newarr.push([{ title:"", data:1 }])
+
+        oldarr.forEach(element => {
+           yeararr.push(`${element.timer.split('-')[0]}年${element.timer.split('-')[1]}月`)
+        });
+
+            for(var i=0; i<yeararr.length; i++){
+                for(var j=i+1; j<yeararr.length; j++){
+                    if(yeararr[i]==yeararr[j]){         //第一个等同于第二个，splice方法删除第二个
+                        yeararr.splice(j,1);
+                        j--;
+                    }
+                }
+            }
+
+ 
+
+           for(var z=0;z<yeararr.length; z++){
+                 newarr.push( {
+                   title:  yeararr[z],
+                   data: oldarr.filter(item=>`${item.timer.split('-')[0]}年${item.timer.split('-')[1]}月`==yeararr[z])
+                 }  )
+             }
+         console.log(newarr)
+
+      return newarr;
     }
   },
 };
@@ -159,6 +194,14 @@ export default {
     color: #fff;
     opacity: 1;
     cursor: pointer;
+  }
+}
+.list {
+  h2{
+    padding: 15px 0;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
   }
 }
 </style>

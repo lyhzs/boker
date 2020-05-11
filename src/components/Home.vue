@@ -23,10 +23,10 @@
           <i class="el-icon-arrow-up"></i>
         </div>
       </transition>
-      <div class="list">
+      <div class="list" @click="touser($event)">
         <i class="el-icon-user"></i>
       </div>
-      <div class="list">
+      <div class="list" @click="tosearch($event)">
         <i class="el-icon-search"></i>
       </div>
     </div>
@@ -57,7 +57,13 @@ export default {
             document.scrollingElement.scrollTop - 200;
         }
       }, 50);
-    }
+    },
+    touser() {
+       window.open("http://wpa.qq.com/msgrd?v=3&uin=494421184&site=qq&menu=yes")
+    },
+    tosearch() {
+      this.$router.push("/search").catch(data=>{})
+    },
   },
   mounted() {
     var _this = this;
@@ -128,6 +134,7 @@ export default {
     margin-bottom: 10px;
     background-color: #9ccafb;
     position: relative;
+    cursor:pointer;
     i {
       display: block;
       font-size: 20px;

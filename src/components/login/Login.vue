@@ -117,6 +117,7 @@ export default {
           //更新vuex中登录状态
           _this.$store.commit("updateLogin", res.data.state);
           _this.$store.commit("updateuser", _this.input1);
+
         } else {
           // 登陆失败
           _this.input1 = "";
