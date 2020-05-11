@@ -1,5 +1,5 @@
 ﻿<template>
-  <div>
+  <div @keydown.enter="tologin">
     <!-- 未登录状态 -->
     <div class="islogin" v-if="!islogin">
       <!-- 登录 -->
@@ -137,8 +137,6 @@ export default {
       this.login = true;
     },
     leavelogin() {
-      console.log(596);
-
       this.$confirm("确认退出?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -161,13 +159,13 @@ export default {
     }
   },
   mounted() {
-    var lett = this;
-    document.onkeydown = function(e) {
-      var key = window.event.keyCode;
-      if (key == 13) {
-        lett.tologin();
-      }
-    };
+    // var lett = this;
+    // document.onkeydown = function(e) {
+    //   var key = window.event.keyCode;
+    //   if (key == 13) {
+    //     lett.tologin();
+    //   }
+    // };
   },
   computed: {
     islogin: {

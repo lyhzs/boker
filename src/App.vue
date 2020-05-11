@@ -29,9 +29,41 @@ export default {
           }
         });
       }, 2000);
-    } 
+    }
+    //长时间未操作自动退出
+        
+　　　　var oldTime = new Date().getTime();
+        var newTime = new Date().getTime();
+        var outTime = 5 * 60 * 1000; //设置超时时间： 5分钟
+
+       
+            /* 鼠标移动事件 */
+           document.mouseover=function(){
+                oldTime = new Date().getTime(); //鼠标移入重置停留的时间
+            }
+  
+   
+        function OutTime(){
+           if(_this.$store.state.islogin){
+              newTime = new Date().getTime(); //更新未进行操作的当前时间
+              if(newTime - oldTime > outTime){ //判断是否超时不操作
+                  _this.$store.commit("updateLogin",false)
+                  //console.log("时间到，退出登录");
+              }
+           }else{
+                 //console.log("未登录");
+             return
+           }
+        }
+
+        /* 定时器  判断每5秒是否长时间未进行页面操作 */
+        setInterval(OutTime, 5000);
+    
+
   },
-  methods: {},
+  methods: {
+
+  },
   components: {
     Home
   }
