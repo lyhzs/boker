@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "aplayer": "^1.10.1",
     "element-ui": "^2.13.0",
     "highlight": "^0.2.4",
     "less": "^3.11.1",

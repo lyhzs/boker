@@ -1,18 +1,43 @@
 <template>
   <div id="app">
     <Home></Home>
+    <div class="music">
+         <transition name="el-fade-in-linear">
+                  <div v-show="show" class="small" @click="show=!show"><i class="el-icon-headset"></i></div> 
+         </transition>
+          <transition name="el-fade-in-linear">
+              <div  v-show="!show" class="musicbottom" >
+                <div id="aplayer"> </div>
+                <i class="el-icon-d-arrow-left" @click="show=!show"></i>
+              </div>
+                  
+         </transition>
+
+    </div>
   </div>
 </template>
 
 <script>
 import Home from "@/components/Home";
+// 音乐播放器
+import "APlayer/dist/APlayer.min.css";
+import APlayer from "APlayer";
 
 export default {
   name: "App",
   data() {
     return {
       active: false, //数据是否请求,
-      timer: null //请求数据定时器
+      timer: null, //请求数据定时器
+         show: false,
+         audio:[
+        {
+          name: "name",
+          artist: "artist",
+          url: "https://cn-south-17-aplayer-46154810.oss.dogecdn.com/darling.mp3",
+          cover: "https://cn-south-17-aplayer-46154810.oss.dogecdn.com/hikarunara.jpg"
+        }
+      ]
     };
   },
   computed: {},
@@ -20,25 +45,26 @@ export default {
     //网站加载时请求数据
     var _this = this;
     if (this.active == false) {
-        this.timer = setInterval(() => {
+      this.timer = setInterval(() => {
         this.$http.get("/look").then(function(res) {
           _this.$store.commit("allData", res.data.data);
-                    if (res.data.status) {
+          if (res.data.status) {
             // console.log(_this.active);
-            clearInterval(_this.timer)
+            clearInterval(_this.timer);
           }
         });
       }, 2000);
     }
-    //长时间未操作自动退出
-        
 
-    
+    //音乐播放器
+    const ap = new APlayer({
+      container: document.getElementById("aplayer"),
+      mini: true,
+      audio: this.audio
+    });
 
   },
-  methods: {
-
-  },
+  methods: {},
   components: {
     Home
   }
@@ -188,7 +214,7 @@ html {
 .slide-right-leave-active,
 .slide-left-enter-active,
 .slide-left-leave-active {
- /* 启用硬件加速 */
+  /* 启用硬件加速 */
   will-change: transform;
   transition: all 300ms;
   position: fixed;
@@ -202,12 +228,52 @@ html {
   transform: translate(100%, 0);
   transition-timing-function: ease-in;
 }
-.fade-enter-active, .fade-leave-active{
-   transition: all 0.5s ease     
-}
-  
-.fade-enter, .fade-leave-active{
-  opacity: 0 
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s ease;
 }
 
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+/* 音乐播放器 */
+.music{
+  position: fixed;
+  top: 40%;
+  left: 0px;
+}
+#aplayer{
+
+}
+.small{
+   transition: all 0.2s;
+  font-size: 25px;
+  cursor: pointer;
+  opacity: 0.2;
+}
+.small:hover{
+ transition: all 0.2s;
+  opacity: 1;
+}
+.musicbottom {
+   position: fixed;
+  top: 40%;
+  left: 0px;
+}
+
+.musicbottom i{
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform:translate(-0%,-50%) ;
+  cursor: pointer;
+  opacity: 0.4;
+
+}
+.musicbottom i:hover{
+  opacity: 1;
+
+}
 </style>

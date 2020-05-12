@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="title">
-           互动
+           äº’åŠ¨
         </div>
         <div class="img">
            <img src="static/images/liu1.gif"/>
