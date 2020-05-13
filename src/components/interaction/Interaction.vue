@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="title">
-           äº’åŠ¨
+        <div class="title" v-title data-title="互动">
+           互动
         </div>
         <div class="img">
            <img src="static/images/liu1.gif"/>

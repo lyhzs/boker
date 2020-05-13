@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <div class="top">
+    <div class="top" v-title data-title="搜索">
       <el-input placeholder="请输入内容" v-model="input" clearable></el-input>
     </div>
     <div class="main">

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-title data-title="逆水行舟,不进则退">
     <div
       v-if="loading"
       v-loading="loading"
@@ -13,7 +13,7 @@
     <transition name="fade">
        <div class="main" v-show="!loading">
       <div class="list" v-for="(item,index) in dataArr" :key="index">
-        <h2 class="post-title">{{item.title}}</h2>
+        <h2 class="post-title" @click="todetails(item.id)">{{item.title}}</h2>
         <div class="post">
           <span class="meta">
             <i class="el-icon-data-analysis icon"></i>发表于
@@ -35,7 +35,11 @@
             <i class="details">≈ {{(item.bodytext.split("").length)/(500).toFixed(2)}} 分钟</i>
           </span>
         </div>
-        <div class="maintext" v-html="item.bodytext"></div>
+        <div class="maintextwarp">
+          <div class="maintext" v-html="item.bodytext"></div>
+          <i class="el-icon-full-screen" @click="todetails(item.id)"></i>
+        </div>
+        
         <span class="post-button" @click="todetails(item.id)">阅读全文»</span>
       </div>
       <!-- 分页 -->
@@ -112,12 +116,22 @@ export default {
     padding: 25px 25px 25px;
     margin: 20px 0;
     box-shadow: 0 0 5px rgba(202, 203, 203, 0.8);
+    transition: all 0.25s;
     .post-title {
       font-size: 26px;
       font-weight: 400;
       overflow-wrap: break-word;
       word-wrap: break-word;
-      margin: 20px 0 15px;
+      margin-top: 20px;
+      margin-bottom:15px;
+      margin-left: 0px;
+      transition: all 0.25s;
+    }
+    .post-title:hover{
+         color: #61B3E6;
+        margin-left: 15px;
+        transition: all 0.25s;
+        cursor: url(/static/images/fcous.cur),auto;
     }
 
     .post {
@@ -142,7 +156,10 @@ export default {
         font-size: 12px;
       }
     }
-    .maintext {
+    .maintextwarp{
+      position: relative;
+       transition: all .5s;
+     .maintext {
       margin: 0 0 20px 0;
       line-height: 32px;
       min-height: 56px;
@@ -152,6 +169,32 @@ export default {
       display: -webkit-box;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
+        border:1px solid transparent;
+
+          padding:5px
+      }
+      i{
+        position: absolute;
+        right: 5px;
+        bottom: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        // display: none;
+        transition: all .5s;
+        opacity: 0;
+      }
+    }
+
+    .maintext:hover {
+     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+      overflow: auto;
+     border:1px solid #ccc;
+  cursor: s-resize;
+    }
+    .maintextwarp:hover i{
+      transition: all .5s;
+      //  display: block;
+       opacity: 1;
     }
     .post-button {
       padding: 8px 0;
@@ -162,6 +205,7 @@ export default {
       cursor: pointer;
     }
   }
+
   .togglepg {
     display: block;
     margin: 0 auto;
@@ -174,5 +218,12 @@ export default {
     width: 300px;
     height: 300px;
   }
+}
+
+  @media screen and  (max-width: 992px)  {
+      .main{
+        width: 95%!important;
+        margin: 0 auto
+      }
 }
 </style>

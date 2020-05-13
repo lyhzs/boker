@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-title data-title="关于">
     <h3>博客说明</h3>
       <el-timeline>
         <el-timeline-item timestamp="2020/5/09" placement="top">

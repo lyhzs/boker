@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <div class="block">
+    <div class="block" v-title data-title="归档">
 
         <div class="list" v-for="(itemdataArr,index) in dataArr" :key="index"> 
           <h2>{{itemdataArr.title}}</h2>

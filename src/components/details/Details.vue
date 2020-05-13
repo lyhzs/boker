@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div class="title">
+      <div class="title" v-title data-title="文章阅读">
         {{detatitle}}
       </div>
     <div v-html='deta' class="details wow pulse">

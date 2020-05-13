@@ -104,6 +104,12 @@ export default {
   width: 800px;
   margin: 20px auto 0;
 }
+@media screen and  (max-width: 992px)  {
+      .main {
+        width: 100%!important;
+        margin: 20px auto 0;
+    }
+}
 .foot {
   text-align: center;
   // margin-top: 30px;

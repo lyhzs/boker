@@ -6,7 +6,7 @@
             <i>Mr.li</i>
           </span>
         </div>
-        <div class="nav">
+        <div class="nav hidden-sm-and-down">
           <ul class="clearfix">
             <li>
               <router-link :to="{path:'/'}" exact>
@@ -53,7 +53,7 @@
       </div>
       <a
         href="https://github.com/lyhzs"
-        class="github-corner"
+        class="github-corner "
         title="Follow me on GitHub"
         aria-label="Follow me on GitHub"
         rel="noopener"
@@ -80,7 +80,7 @@
           />
         </svg>
       </a>
-      <i class="el-icon-collection-tag sc" @click="_addFavorite"></i>
+      <i class="el-icon-collection-tag sc hidden-sm-and-down" @click="_addFavorite"></i>
     </div>
 
 </template>
@@ -154,10 +154,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-
+    position: relative;
     .logo {
       width: 45px;
       cursor: pointer;
+     
+      height: 40px;
       span {
         display: block;
         height: 40px;
@@ -166,8 +168,11 @@ export default {
         // border-bottom: 2px solid #222;
         text-align: center;
         line-height: 40px;
-        position: relative;
+        position: absolute;
         transition: all 0.5s;
+        left: 0;
+        top: 50%;
+        transform:translate(0,-50%);
         i {
           font-size: 22px;
           font-weight: bolder;
@@ -254,6 +259,74 @@ export default {
       }
     }
   }
+  @media screen and  (max-width: 992px)  {
+      .main {
+        width: 100%!important;
+      .logo {
+      width: 45px;
+      cursor: pointer;
+     
+      height: 40px;
+      span {
+        display: block;
+        height: 40px;
+        width: 40px;
+        // border-top: 2px solid #222;
+        // border-bottom: 2px solid #222;
+        text-align: center;
+        line-height: 40px;
+        position: absolute;
+        transition: all 0.5s;
+        left: 10%;
+        top: 50%;
+        transform:translate(0,-50%);
+        i {
+          font-size: 22px;
+          font-weight: bolder;
+          position: relative;
+          left: -8px;
+        }
+        :after{
+          content: "";
+          position: absolute;
+          top: -8px;
+          right: 10%;
+          width: 80%;
+          height: 2px;
+          background: #222
+        }
+        :before{
+           content: "";
+          position: absolute;
+          bottom: -8px;
+          left: 10%;
+          width: 80%;
+          height: 2px;
+          background: #222
+        }
+   
+      }
+      span:hover{
+         :after{
+           animation: topleave 1s ;
+        }
+        :before{
+           animation: topleave 1s ;
+          }
+      }
+     @keyframes topleave {
+       0%{
+          width: 0%;
+       }
+     
+       100%{
+          width: 80%;
+       }
+     }
+
+    }
+    }
+}
   .github-corner {
     position: absolute;
     top: 0;

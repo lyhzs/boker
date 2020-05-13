@@ -1,5 +1,5 @@
 ﻿<template>
-  <div  class="details">
+  <div  class="details" v-title data-title="分类">
         <h3 class="title">分类</h3>
         <el-collapse v-model="activeName" accordion>
             <el-collapse-item :title="item.title+'('+item.arr.length+')'" :name="index+1"  v-for="(item,index) in dataArr" :key="index">

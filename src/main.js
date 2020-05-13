@@ -180,24 +180,34 @@ var less =require("less")
 Vue.config.productionTip = false
 
 //全局守卫
-router.beforeEach((to,from,next)=>{
+// router.beforeEach((to,from,next)=>{
 
-//   to.path=="/issue"? store.state.islogin?next():next("/Login") : next()
-    if(to.path=="/issue"){
-        if(store.state.islogin){next()}else{
-            Notification({
-                title: '警告',
-                message: '用户未登录',
-                type: 'warning'
-              });
+// //   to.path=="/issue"? store.state.islogin?next():next("/Login") : next()
+//     if(to.path=="/issue"){
+//         if(store.state.islogin){next()}else{
+//             Notification({
+//                 title: '警告',
+//                 message: '用户未登录',
+//                 type: 'warning'
+//               });
 
-            next("/Login")
-        }
-    }else{
-        next()
-    }
+//             next("/Login")
+//         }
+//     }else{
+//         next()
+//     }
   
-})
+// })
+
+
+//自定义事件 修改路由页面的浏览器标题 
+Vue.directive('title', {
+    inserted: function (el, binding) {
+      document.title = el.dataset.title
+    }
+  })
+  //移动端隐藏class
+  import 'element-ui/lib/theme-chalk/display.css';
 
 //引入wow.js
 import 'animate.css'

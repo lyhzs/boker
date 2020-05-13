@@ -1,5 +1,5 @@
 ﻿<template>
-  <div @keydown.enter="tologin">
+  <div @keydown.enter="tologin" v-title data-title="权限">
     <!-- 未登录状态 -->
     <div class="islogin" v-if="!islogin">
       <!-- 登录 -->
