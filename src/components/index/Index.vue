@@ -35,13 +35,23 @@
             <i class="details">≈ {{(item.bodytext.split("").length)/(500).toFixed(2)}} 分钟</i>
           </span>
         </div>
-        <div class="maintextwarp">
-          <div class="maintext" v-html="item.bodytext"></div>
-          <i class="el-icon-full-screen" @click="todetails(item.id)"></i>
-          <div class="shade hidden-sm-and-down"> <span>{{item.title}}</span> </div>
+        <div class="labellist clearfix">
+            <div v-for="(item1,index1) in item.islabel.split(',')" :key="index1">
+                  <el-tag type="success" size="mini">{{item1}}</el-tag>
+            </div>    
         </div>
-        
+        <div class="maintextwarp">
+          <div class="maintext" >
+             {{item.expl}}
+          </div>
+          <i class="el-icon-full-screen" @click="todetails(item.id)"></i>
+          <!-- <div class="shade hidden-sm-and-down">
+            <div class="left"></div>
+             <span class="right">{{item.title}}</span> 
+           </div> -->
+        </div>
         <span class="post-button" @click="todetails(item.id)">阅读全文»</span>
+        <i class="star el-icon-star-on" v-if="item.ismy=='true'"></i>
       </div>
       <!-- 分页 -->
       <div class="togglepg">
@@ -118,6 +128,7 @@ export default {
     margin: 20px 0;
     box-shadow: 0 0 5px rgba(202, 203, 203, 0.8);
     transition: all 0.25s;
+    position: relative;
     .post-title {
       font-size: 26px;
       font-weight: 400;
@@ -137,7 +148,7 @@ export default {
 
     .post {
       margin-top: 5px;
-      margin-bottom: 20px;
+      margin-bottom: 5px;
       color: #999;
       font-family: "Lato", "PingFang SC", "Microsoft YaHei", sans-serif;
       font-size: 12px;
@@ -157,6 +168,12 @@ export default {
         font-size: 12px;
       }
     }
+    .labellist{
+      div{
+        float: left;
+        margin:5px 10px 5px 0;
+      }
+    }
     .maintextwarp{
       position: relative;
        transition: all .5s;
@@ -164,12 +181,11 @@ export default {
      .maintext {
       margin: 0 0 20px 0;
       line-height: 32px;
-      min-height: 200px;
-      max-height: 200px;
+      height: 56px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 4;
+      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
         // border:1px solid transparent;
        
@@ -184,36 +200,56 @@ export default {
         transition: all .5s;
         opacity: 0;
       }
-       .shade{
-          position: absolute;
-          top:0;
-          left:0;
-          width: 100%;
-          height: 100%;
-          background: url(/static/images/wzbg.jpg);
-          background-size: cover;
-           transition: all 0.6s;
-           opacity: 1;
-          span{
-            line-height: 200px;
-            text-align: center;
-            color: #ffffff;
-            font-size: 25px
-          }
-        }
+      //  .shade{
+      //     position: absolute;
+      //     top:0;
+      //     left:0;
+      //     width: 100%;
+      //     height: 100%;
+      //     // background: url(/static/images/wzbg.jpg);
+      //     // background-size: cover;
+      //      transition: all 0.6s;
+      //      opacity: 1;
+      //      display: flex;
+      //      div{
+      //        width: 200px;
+      //        height: 100%;
+      //        background: url(/static/images/1.png);
+      //        background-size: cover;
+      //      }
+      //    span{
+      //      flex: 1;
+      //       line-height: 200px;
+      //       text-align: center;
+      //       color: #4d2852;
+      //       font-size: 25px;
+      //       background-color: #dcdfe6;
+      //     }
+      //   }
     }
-
-    .maintextwarp:hover .maintext{
-    //  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-      overflow: auto;
-    //  border:1px solid #ccc;
+    .star{
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 30px;
+      color: #e6a23c;
+       transition: all 0.5s;
     }
-    .maintextwarp:hover .shade{
-       transition: all 0.6s;
-       opacity: 0.6;
-        top:-100%;
-        left:0;
+    .star:hover{
+      transition: all 0.5s;
+     transform: rotate(270deg);
     }
+    // .maintextwarp:hover .maintext{
+    // //  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    //   overflow: auto;
+    // //  border:1px solid #ccc;
+    // }
+    // .maintextwarp:hover .shade{
+    //    transition: all 0.6s;
+    //    opacity: 0.6;
+    //     top:0;
+    //     left:-100%;
+    // }
     .maintextwarp:hover i{
       transition: all .5s;
       //  display: block;

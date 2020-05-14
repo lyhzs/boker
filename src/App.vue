@@ -47,7 +47,7 @@ export default {
     if (this.active == false) {
       this.timer = setInterval(() => {
         this.$http.get("/look").then(function(res) {
- 
+           // console.log(res.data.data);
           _this.$store.commit("allData", res.data.data);
           if (res.data.status) {
             // console.log(_this.active);

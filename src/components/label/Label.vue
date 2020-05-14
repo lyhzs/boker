@@ -1,5 +1,5 @@
 <template>
-<div class="main">
+<div class="main" v-title data-title="标签">
     		<div class="wrapper">
 		  <div class="cols">
 					<div class="col" ontouchstart="this.classList.toggle('hover');">

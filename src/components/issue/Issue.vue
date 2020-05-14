@@ -2,63 +2,113 @@
   <div>
     <!-- 发布 -->
     <div class="issue" v-show="islogin" v-title data-title="发布">
-      <!-- 标题 -->
-      <div>
-        <h3 class="title">文章标题：</h3>
-        <el-input v-model="title" placeholder="请输入内容"></el-input>
-      </div>
-      <!-- 分类和时间选择 -->
-      <div class="mate">
-        <el-row class="demo-autocomplete">
-          <el-col :span="12">
-            <h3 class="title">选择分类</h3>
-            <el-autocomplete
-              class="inline-input"
-              v-model="classify"
-              :fetch-suggestions="querySearch"
-              placeholder="请输入内容"
-              @select="handleSelect"
-            ></el-autocomplete>
-          </el-col>
-          <el-col :span="12">
-            <h3 class="title">选择发布日期</h3>
-            <el-date-picker
-              v-model="timer"
-              type="date"
-              placeholder="选择日期"
-              value-format="yyyy-MM-dd"
-            ></el-date-picker>
-          </el-col>
-        </el-row>
-      </div>
-      <!-- 富文本 -->
-      <h3 class="title">文章内容：</h3>
-      <div>
-        <vue-html5-editor
-          :content="content"
-          :height="500"
-          ref="editor"
-          @change="updateData"
-          :show-module-name="showModuleName"
-          :auto-height="true"
-        ></vue-html5-editor>
-      </div>
-      <!-- 提交 -->
-      <div class="submit">
-        <el-button type="primary" @click="submit">
-          提交
-          <i class="el-icon-upload el-icon--right"></i>
-        </el-button>
-      </div>
+      <el-collapse v-model="activeName" accordion>
+        <!-- 文章选项 -->
+        <el-collapse-item name="1">
+          <template slot="title">
+            文章标题/描述/说明等
+            <i class="header-icon el-icon-s-operation" style="margin-left:10px"></i>
+          </template>
+          <!-- 标题 -->
+          <div>
+            <h3 class="title">文章标题：</h3>
+            <el-input v-model="title" placeholder="请输入内容"></el-input>
+          </div>
+          <!-- 标题 -->
+          <div>
+            <h3 class="title">文章描述：</h3>
+            <el-input v-model="explain" placeholder="请输入描述"></el-input>
+          </div>
+          <!-- 分类 -->
+          <div class="mate">
+            <el-row class="demo-autocomplete">
+              <el-col :span="8">
+                <h3 class="title">选择分类</h3>
+                <el-autocomplete
+                  class="inline-input"
+                  v-model="classify"
+                  :fetch-suggestions="querySearch"
+                  placeholder="请输入内容"
+                  @select="handleSelect"
+                ></el-autocomplete>
+              </el-col>
+              <!-- 时间选择 -->
+              <el-col :span="8">
+                <h3 class="title">选择发布日期</h3>
+                <el-date-picker
+                  v-model="timer"
+                  type="date"
+                  placeholder="选择日期"
+                  value-format="yyyy-MM-dd"
+                ></el-date-picker>
+              </el-col>
+              <!-- 选择标签 -->
+              <el-col :span="8">
+                <h3 class="title">选择标签</h3>
+                <el-select
+                  v-model="islabel"
+                   collapse-tags
+                  multiple
+                  filterable
+                  allow-create
+                  default-first-option
+                  placeholder="请选择文章标签"
+                >
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
+              </el-col>
+              <!-- 是否加入收藏 -->
+              <el-col :span="8">
+                <h3 class="title">是否加入收藏</h3>
+                <el-switch v-model="ismy" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+              </el-col>
+            </el-row>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item name="2">
+          <template slot="title">
+            文章编辑
+            <i class="header-icon el-icon-s-order" style="margin-left:10px"></i>
+          </template>
+          <!-- 富文本 -->
+          <div>
+            <vue-html5-editor
+              :content="content"
+              :height="500"
+              ref="editor"
+              @change="updateData"
+              :show-module-name="showModuleName"
+              :auto-height="true"
+            ></vue-html5-editor>
+          </div>
+          <!-- 提交 -->
+          <div class="submit">
+            <el-button type="primary" @click="submit">
+              提交
+              <i class="el-icon-upload el-icon--right"></i>
+            </el-button>
+          </div>
+        </el-collapse-item>
+      </el-collapse>
     </div>
     <!-- 登录注册 -->
-    <div class="loginbox" v-show="!islogin"  @keydown.enter="tologin">
+    <div class="loginbox" v-show="!islogin" @keydown.enter="tologin">
       <div class="main">
         <!-- 登录 -->
         <div class="login" v-show="login">
           <div class="list">
             <div class="left">账号：</div>
-            <el-input class="right" placeholder="请输入账号" suffix-icon="el-icon-user" v-model="input1"></el-input>
+            <el-input
+              class="right"
+              placeholder="请输入账号"
+              suffix-icon="el-icon-user"
+              v-model="username"
+            ></el-input>
           </div>
 
           <div class="list">
@@ -67,7 +117,7 @@
               class="right"
               placeholder="请输入密码"
               suffix-icon="el-icon-view"
-              v-model="input2"
+              v-model="userpass"
               type="password"
             ></el-input>
           </div>
@@ -76,42 +126,46 @@
             <el-button type="primary" plain @click="tologin">登录</el-button>
           </div>
         </div>
-      <!-- 注册 -->
-      <div class="login" v-show="!login">
-        <div class="list">
-          <div class="left">账号：</div>
-          <el-input class="right" placeholder="请输入账号" suffix-icon="el-icon-user" v-model="input1"></el-input>
-        </div>
+        <!-- 注册 -->
+        <div class="login" v-show="!login">
+          <div class="list">
+            <div class="left">账号：</div>
+            <el-input
+              class="right"
+              placeholder="请输入账号"
+              suffix-icon="el-icon-user"
+              v-model="username"
+            ></el-input>
+          </div>
 
-        <div class="list">
-          <div class="left">密码：</div>
-          <el-input
-            class="right"
-            placeholder="请输入密码"
-            suffix-icon="el-icon-view"
-            v-model="input2"
-            type="password"
-          ></el-input>
-        </div>
+          <div class="list">
+            <div class="left">密码：</div>
+            <el-input
+              class="right"
+              placeholder="请输入密码"
+              suffix-icon="el-icon-view"
+              v-model="userpass"
+              type="password"
+            ></el-input>
+          </div>
 
-        <div class="list">
-          <div class="left">确认：</div>
-          <el-input
-            class="right"
-            placeholder="请确认密码"
-            suffix-icon="el-icon-view"
-            v-model="input3"
-            type="password"
-          ></el-input>
-        </div>
+          <div class="list">
+            <div class="left">确认：</div>
+            <el-input
+              class="right"
+              placeholder="请确认密码"
+              suffix-icon="el-icon-view"
+              v-model="alignpass"
+              type="password"
+            ></el-input>
+          </div>
 
-        <div class="row">
-          <el-button type="primary" plain @click="login=!login">登录</el-button>
-          <el-button type="primary" plain @click="toregister">注册</el-button>
+          <div class="row">
+            <el-button type="primary" plain @click="login=!login">登录</el-button>
+            <el-button type="primary" plain @click="toregister">注册</el-button>
+          </div>
         </div>
-      </div>
-        <i class="close el-icon-circle-close" @click="closelogin"> </i>
-
+        <i class="close el-icon-circle-close" @click="closelogin"></i>
       </div>
     </div>
   </div>
@@ -122,19 +176,48 @@ export default {
   name: "Issue",
   data() {
     return {
-      isclearable: true,
+      activeName: "1", //手风琴切换
       restaurants: [],
-      title: "",
-      classify: "",
-      timer: "",
-      content: "",
+      login: true, //登录注册切换
+      // 提交的内容
+      title: "", //提交的标题
+      explain: "", //提交的说明
+      classify: "", //提交的分类
+      timer: "", //提交的时间
+      content: "", //提交的富文本内容
       showModuleName: false,
-      flag: true,
-       login: true, //登录注册切换
-         input1: "",
-      input2: "",
-      input3: "",
-
+      options: [
+        {
+          value: "vue",
+          label: "vue"
+        },
+        {
+          value: "js",
+          label: "js"
+        },
+        {
+          value: "css",
+          label: "css"
+        },
+        {
+          value: "面试",
+          label: "面试"
+        },
+        {
+          value: "我的收藏",
+          label: "我的收藏"
+        },
+        {
+          value: "node",
+          label: "node"
+        }
+      ], //标签选择器
+      ismy: false, //提交的是否收藏
+      islabel: [], //提交的选择标签
+      // 登录注册的内容
+      username: "", //登录框账号
+      userpass: "", //登录框密码
+      alignpass: "" //确认密码
     };
   },
   methods: {
@@ -177,7 +260,10 @@ export default {
         title: this.title == "" ? "未命名标题" : this.title,
         classify: this.classify == "" ? "未命名分类" : this.classify,
         bodytext: this.content.replace(/[\\"']/g, "\\$&"), //转义 存到数据库中
-        timer: this.timer == "" ? new Date() : this.timer
+        timer: this.timer == "" ? new Date() : this.timer,
+        expl: this.explain == "" ? "未填写描述" : this.explain,
+        ismy: this.ismy ? "true" : "false",
+        islabel: this.islabel == "" ? "未选择标签" : this.islabel.toString()
       };
       this.$http.post("/add", postData).then(function(res) {
         if (res.data.state) {
@@ -211,12 +297,12 @@ export default {
       // sync content to component
       this.content = data;
     },
-        //登录
-     tologin() {
+    //登录
+    tologin() {
       var _this = this;
       var postData = {
-        name: this.input1,
-        password: this.input2
+        name: this.username,
+        password: this.userpass
       };
 
       this.$http.post("/login", postData).then(function(res) {
@@ -230,12 +316,11 @@ export default {
 
           //更新vuex中登录状态
           _this.$store.commit("updateLogin", res.data.state);
-          _this.$store.commit("updateuser", _this.input1);
-
+          _this.$store.commit("updateuser", _this.username);
         } else {
           // 登陆失败
-          _this.input1 = "";
-          _this.input2 = "";
+          _this.username = "";
+          _this.userpass = "";
           _this.$notify.error({
             title: "错误",
             message: "登陆失败"
@@ -253,12 +338,12 @@ export default {
       this.login = true;
     },
     //关闭登录
-    closelogin(){
-        this.$router.push('/')
+    closelogin() {
+      this.$router.push("/");
     }
   },
   computed: {
-        //登录状态验证
+    //登录状态验证
     islogin() {
       return this.$store.state.islogin;
     }
@@ -334,42 +419,42 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     .login {
-  width: 360px;
-  margin: 45px auto 30px;
-  position: relative;
-  .list {
-    display: flex;
-    margin-bottom: 15px;
-    .left {
-      width: 80px;
-      line-height: 40px;
+      width: 360px;
+      margin: 45px auto 30px;
+      position: relative;
+      .list {
+        display: flex;
+        margin-bottom: 15px;
+        .left {
+          width: 80px;
+          line-height: 40px;
+        }
+        .right {
+          flex: 1;
+        }
+      }
+      .row {
+        display: flex;
+        margin-top: 20px;
+        button {
+          flex: 1;
+        }
+      }
     }
-    .right {
-      flex: 1;
-    }
-  }
-  .row {
-    display: flex;
-    margin-top: 20px;
-    button {
-      flex: 1;
-    }
-  }
-}
   }
 
-  .close{
+  .close {
     position: absolute;
     top: 5px;
     right: 5px;
     cursor: pointer;
     opacity: 0.5;
-    transition: all .3s
+    transition: all 0.3s;
   }
-  .close:hover{
-   opacity: 1;
-   transform: rotate(360deg);
-   transition: all .3s
+  .close:hover {
+    opacity: 1;
+    transform: rotate(360deg);
+    transition: all 0.3s;
   }
 }
 </style>
