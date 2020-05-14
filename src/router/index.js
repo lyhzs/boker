@@ -58,6 +58,11 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: ()=>import('@/components/about/About')
+    },
+    {
+      path: '/label',
+      name: 'Label',
+      component: ()=>import('@/components/label/Label')
     }
   ]
 })

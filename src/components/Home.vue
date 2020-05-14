@@ -104,11 +104,13 @@ export default {
   width: 800px;
   margin: 20px auto 0;
 }
-@media screen and  (max-width: 992px)  {
+@media screen and  (max-width: 768px)  {
       .main {
         width: 100%!important;
         margin: 20px auto 0;
-    }
+        padding: 25px;
+        box-sizing: border-box
+     }
 }
 .foot {
   text-align: center;

@@ -7,7 +7,7 @@
                  <li v-for="(item1,index1) in item.arr" :key="index1" @click="todetails(item1.id)">
                    <i class="el-icon-tickets icon"></i>
                    {{item1.title}} 
-                      <div class="time"> 时间 {{item1.timer}}</div>
+                      <div class="time hidden-sm-and-down"> 时间 {{item1.timer}}</div>
                    </li>
               </ul>
             </el-collapse-item>          

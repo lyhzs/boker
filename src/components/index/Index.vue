@@ -38,6 +38,7 @@
         <div class="maintextwarp">
           <div class="maintext" v-html="item.bodytext"></div>
           <i class="el-icon-full-screen" @click="todetails(item.id)"></i>
+          <div class="shade hidden-sm-and-down"> <span>{{item.title}}</span> </div>
         </div>
         
         <span class="post-button" @click="todetails(item.id)">阅读全文»</span>
@@ -159,19 +160,19 @@ export default {
     .maintextwarp{
       position: relative;
        transition: all .5s;
+       overflow: hidden;
      .maintext {
       margin: 0 0 20px 0;
       line-height: 32px;
-      min-height: 56px;
+      min-height: 200px;
       max-height: 200px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
-        border:1px solid transparent;
-
-          padding:5px
+        // border:1px solid transparent;
+       
       }
       i{
         position: absolute;
@@ -183,13 +184,35 @@ export default {
         transition: all .5s;
         opacity: 0;
       }
+       .shade{
+          position: absolute;
+          top:0;
+          left:0;
+          width: 100%;
+          height: 100%;
+          background: url(/static/images/wzbg.jpg);
+          background-size: cover;
+           transition: all 0.6s;
+           opacity: 1;
+          span{
+            line-height: 200px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 25px
+          }
+        }
     }
 
-    .maintext:hover {
-     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    .maintextwarp:hover .maintext{
+    //  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
       overflow: auto;
-     border:1px solid #ccc;
-  cursor: s-resize;
+    //  border:1px solid #ccc;
+    }
+    .maintextwarp:hover .shade{
+       transition: all 0.6s;
+       opacity: 0.6;
+        top:-100%;
+        left:0;
     }
     .maintextwarp:hover i{
       transition: all .5s;
@@ -220,10 +243,15 @@ export default {
   }
 }
 
-  @media screen and  (max-width: 992px)  {
+  @media screen and  (max-width: 768px)  {
       .main{
         width: 95%!important;
-        margin: 0 auto
+        margin: 0 auto;
+             .maintext {
+
+      max-height: 80px!important;
+
+      }
       }
 }
 </style>

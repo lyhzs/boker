@@ -18,6 +18,11 @@
                 <i class="el-icon-s-ticket"></i>分类
               </router-link>
             </li>
+           <li>
+              <router-link :to="{path:'/label'}">
+                <i class="el-icon-s-check"></i>标签
+              </router-link>
+            </li>
             <li>
               <router-link :to="{path:'/pigeonhole'}">
                 <i class="el-icon-s-cooperation"></i>归档
@@ -28,11 +33,11 @@
                 <i class="el-icon-s-promotion"></i>互动
               </router-link>
             </li>
-             <li>
+             <!-- <li>
               <router-link :to="{path:'/login'}">
                 <i class="el-icon-s-check"></i>权限
               </router-link>
-            </li>
+            </li> -->
             <li>
               <router-link :to="{path:'/issue'}">
                 <i class="el-icon-share"></i>发布
@@ -259,7 +264,7 @@ export default {
       }
     }
   }
-  @media screen and  (max-width: 992px)  {
+  @media screen and  (max-width: 768px)  {
       .main {
         width: 100%!important;
       .logo {

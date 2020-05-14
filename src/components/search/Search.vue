@@ -9,7 +9,7 @@
                  <li v-for="(item,index) in newdataArr" :key="index" @click="todetails(item.id)">
                    <i class="el-icon-tickets icon"></i>
                    {{item.title}} 
-                      <div class="time"> 时间 {{item.timer}}</div>
+                      <div class="time hidden-sm-and-down"> 时间 {{item.timer}}</div>
                    </li>
             </ul>
         
@@ -43,7 +43,9 @@ export default {
       return this.$store.getters.sortArr
     },
     newdataArr(){
-      return this.dataArr.filter(item=>item.title.indexOf(this.input)!=-1)
+      // 搜索页面只展示最新的20条数据
+      // if(this.input==""){return this.$store.getters.sortArr.splice(0,20)}
+      return this.input==""?this.$store.getters.sortArr.slice(0,20):this.dataArr.filter(item=>item.title.indexOf(this.input)!=-1)
     }
   }
 };
