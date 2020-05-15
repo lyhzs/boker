@@ -1,42 +1,45 @@
 <template>
   <div>
       <div class="title" v-title data-title="文章阅读">
-        {{detatitle}}
+        {{til}}
       </div>
-    <div v-html='deta' class="details wow pulse">
-     <!-- {{this.$route.params.id}} -->
-      
-      <!-- {{data}} -->
+    <div v-html="data" class="details wow pulse">
   </div>
   </div>
 </template>
-
 <script>
-
-
 export default {
   name: "Details",
   data() {
     return {
-      data:""
+      data:"",
+      til:""
     };
   },
   methods: {
      
   },
   mounted() {
-      this.$store.commit("lookdetails",this.$route.params.id)
-     if(this.$store.state.details.length==0){
-      this.$router.push("/search")
-    }
+    var _this=this  
+   //文章id
+   // console.log(this.$route.params.id);
+    this.$http.get('/lookdetails',{
+            params:{
+              id:_this.$route.params.id
+            }
+          }).then(function(res) {
+            //console.log(res.data);
+            //没找到文章跳转搜索页面
+            if(res.data.data.length==0){_this.$router.push('/search').catch(data=>{})
+            return
+            }
+            //将请求到的文章进行渲染
+                _this.data=res.data.data[0].bodytext
+                _this.til=res.data.data[0].title   
+        });
+
   },
   computed: {
-    deta(){
-        if(this.$store.state.details.length!=0){return  this.$store.state.details[0].bodytext}  
-    },
-    detatitle(){
-        if(this.$store.state.details.length!=0){return  this.$store.state.details[0].title}  
-    }
   },
 };
 </script>

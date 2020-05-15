@@ -9,7 +9,6 @@ const store = new Vuex.Store({
     state:{
         //存放的键值对就是所要管理的状态
         dataArr:[],//所有文章详情数据
-        details:[],//details 返回详情页具体哪篇文章
         islogin:false,//登录状态
         isuser:""//登录成功的用户
     },
@@ -17,11 +16,6 @@ const store = new Vuex.Store({
         //首页加载请求数据
         allData(state,data){
             state.dataArr = data
-        },
-        lookdetails(state,data){
-            state.details =state.dataArr.filter((item)=>{
-               return item.id==data    
-            })
         },
         //用户状态更新
         updateLogin(state,data){
@@ -82,8 +76,7 @@ const store = new Vuex.Store({
             }
 
             return allify
-        }
-
+        },
     }
 })
  

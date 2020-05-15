@@ -35,7 +35,7 @@ export default new Router({
       component: ()=>import('@/components/pigeonhole/Pigeonhole')
     },
     {
-      path: '/details',
+      path: '/details/:id',
       name: 'Details',
       component: ()=>import('@/components/details/Details')
     },

@@ -27,12 +27,12 @@
           <span class="post-meta-divider">|</span>
           <span class="meta">
             <i class="el-icon-notebook-2 icon"></i>本文字数
-            <i class="details">{{item.bodytext.split("").length/1000}}k</i>
+            <i class="details">{{item.expl.split("").length/1000}}k</i>
           </span>
           <span class="post-meta-divider">|</span>
           <span class="meta">
             <i class="el-icon-timer icon"></i>阅读时长
-            <i class="details">≈ {{(item.bodytext.split("").length)/(500).toFixed(2)}} 分钟</i>
+            <i class="details">≈ {{(item.expl.split("").length)/(500).toFixed(2)}} 分钟</i>
           </span>
         </div>
         <div class="labellist clearfix">
@@ -78,7 +78,6 @@ export default {
     return {
       // allDataArr: []所有数据,
       // dataArr:[] 首页渲染的5条数据,
-
       // loading:true 数据加载慢时出现的加载圈,
       flag: 1 //分页标识
     };
@@ -86,10 +85,7 @@ export default {
   methods: {
     todetails(id) {
       this.$router.push({
-        name: "Details",
-        params: {
-          id: id
-        }
+       path: `/details/${id}`,
       });
     },
     pageChange(val) {

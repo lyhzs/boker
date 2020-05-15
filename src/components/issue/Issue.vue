@@ -261,7 +261,7 @@ export default {
         classify: this.classify == "" ? "未命名分类" : this.classify,
         bodytext: this.content.replace(/[\\"']/g, "\\$&"), //转义 存到数据库中
         timer: this.timer == "" ? new Date() : this.timer,
-        expl: this.explain == "" ? "未填写描述" : this.explain,
+        expl: this.explain == "" ? "未填写描述" : this.explain.replace(/[\\/"']/g, "\\$&"),
         ismy: this.ismy ? "true" : "false",
         islabel: this.islabel == "" ? "未选择标签" : this.islabel.toString()
       };

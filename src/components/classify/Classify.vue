@@ -28,11 +28,8 @@ export default {
   },
   methods: {
     todetails(id) {
-      this.$router.push({
-        name: "Details",
-        params: {
-          id: id
-        }
+           this.$router.push({
+       path: `/details/${id}`,
       });
     }
   },
