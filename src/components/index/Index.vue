@@ -103,6 +103,7 @@ export default {
     allDataArr() {
       // console.log(this.$store.getters.sortArr);
 
+      // return this.$store.getters.sortArr;
       return this.$store.getters.sortArr;
     },
     dataArr() {

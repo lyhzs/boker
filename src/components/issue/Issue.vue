@@ -349,6 +349,16 @@ export default {
     }
   },
   mounted() {
+     var _this=this
+    //通过验证服务器上session 判断登录状态 
+     this.$http.post("/login").then(function(res) {
+      // console.log(res.data);
+           if (res.data.state) {
+                 _this.$store.commit("updateLogin", res.data.state);
+                 _this.$store.commit("updateuser", res.data.data);
+           }
+      })
+
     //分类联想展示
     this.restaurants = this.loadAll();
     //保存本地的编辑文本
