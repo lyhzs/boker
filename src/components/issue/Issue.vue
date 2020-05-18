@@ -121,6 +121,10 @@
               type="password"
             ></el-input>
           </div>
+          <div class="row sett" >
+             <el-checkbox v-model="checked" >7天内免登录</el-checkbox>
+             <el-link type="primary">忘记密码</el-link>
+          </div>
           <div class="row">
             <el-button type="primary" plain @click="login=!login">注册</el-button>
             <el-button type="primary" plain @click="tologin">登录</el-button>
@@ -217,7 +221,8 @@ export default {
       // 登录注册的内容
       username: "", //登录框账号
       userpass: "", //登录框密码
-      alignpass: "" //确认密码
+      alignpass: "", //确认密码
+      checked:true,//免验证
     };
   },
   methods: {
@@ -263,7 +268,8 @@ export default {
         timer: this.timer == "" ? new Date() : this.timer,
         expl: this.explain == "" ? "未填写描述" : this.explain.replace(/[\\/"']/g, "\\$&"),
         ismy: this.ismy ? "true" : "false",
-        islabel: this.islabel == "" ? "未选择标签" : this.islabel.toString()
+        islabel: this.islabel == "" ? "未选择标签" : this.islabel.toString(),
+       
       };
       this.$http.post("/add", postData).then(function(res) {
         if (res.data.state) {
@@ -302,7 +308,8 @@ export default {
       var _this = this;
       var postData = {
         name: this.username,
-        password: this.userpass
+        password: this.userpass,
+         ischecked: this.checked ? "true" : "false",//免验证登录
       };
 
       this.$http.post("/login", postData).then(function(res) {
@@ -348,16 +355,11 @@ export default {
       return this.$store.state.islogin;
     }
   },
+  created(){
+
+  },
   mounted() {
-     var _this=this
-    //通过验证服务器上session 判断登录状态 
-     this.$http.post("/login").then(function(res) {
-      // console.log(res.data);
-           if (res.data.state) {
-                 _this.$store.commit("updateLogin", res.data.state);
-                 _this.$store.commit("updateuser", res.data.data);
-           }
-      })
+
 
     //分类联想展示
     this.restaurants = this.loadAll();
@@ -448,6 +450,14 @@ export default {
         margin-top: 20px;
         button {
           flex: 1;
+        }
+      }
+      .sett{
+        padding: 0 10px;
+        position: relative;
+        a{
+         position: absolute;
+         right: 10px;
         }
       }
     }

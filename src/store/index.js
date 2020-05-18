@@ -77,6 +77,25 @@ const store = new Vuex.Store({
 
             return allify
         },
+        //发布时选择分组的建议
+        islable(state){
+             var allify={}
+
+            state.dataArr.map(item=>{
+                item.islabel.split(',').forEach(element => {
+
+                   if(allify[element]){
+                        allify[element].arr.push({id:item.id,title:item.title,timer:item.timer})
+                        allify[element].num++
+                   }else{
+                    allify[element]={name:element,arr:[{id:item.id,title:item.title,timer:item.timer}],num:1}
+                   }
+   
+                });
+            })
+                       
+            return allify
+        },
     }
 })
  

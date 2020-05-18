@@ -40,6 +40,11 @@ export default new Router({
       component: ()=>import('@/components/details/Details')
     },
     {
+      path: '/labeldetails/:id',
+      name: 'Labeldetails',
+      component: ()=>import('@/components/labeldetails/Labeldetails')
+    },
+    {
       path: '/interaction',
       name: 'Interaction',
       component: ()=>import('@/components/interaction/Interaction')

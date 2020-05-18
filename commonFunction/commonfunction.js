@@ -1,8 +1,13 @@
 export default{
-    getdata(){
-        // var _this = this;
-        // this.$http.get("/look").then(function(res) {
-        //   _this.$store.commit("allData", res.data.data);  
-         //  });
+    backtop(){
+        var timer = setInterval(() => {
+            if (document.scrollingElement.scrollTop <= 0) {
+              clearInterval(timer);
+              timer = null;
+            } else {
+              document.scrollingElement.scrollTop =
+                document.scrollingElement.scrollTop - 200;
+            }
+          }, 50);
     }
 }

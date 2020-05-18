@@ -89,12 +89,15 @@ export default {
       });
     },
     pageChange(val) {
+     this.commom.backtop()
       this.flag = val;
     },
     pagePrev(val) {
+       this.commom.backtop()
       this.flag = val;
     },
     pageNext(val) {
+         this.commom.backtop()
       this.flag = val;
     }
   },

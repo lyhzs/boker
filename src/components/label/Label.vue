@@ -1,343 +1,91 @@
 <template>
-<div class="main" v-title data-title="标签">
-    		<div class="wrapper">
-		  <div class="cols">
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(/static/images/1.png)">
-								<div class="inner">
-									<p>js</p>
-		              <span>Lorem ipsum</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-								  <p>js相关</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image:url(/static/images/2.png)">
-								<div class="inner">
-									<p>vue</p>
-		              <span>Lorem ipsum</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>vue相关</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(/static/images/3.png)">
-								<div class="inner">
-									<p>css</p>
-		              <span>Lorem ipsum</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>css相关</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(/static/images/4.png)">
-								<div class="inner">
-									<p>面试</p>
-		              <span>Lorem ipsum</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>面试题</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(/static/images/5.png)">
-								<div class="inner">
-									<p>我的收藏</p>
-		              <span>Lorem ipsum</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>我的收藏</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(/static/images/6.png)">
-								<div class="inner">
-									<p>js特效</p>
-		              <span>Lorem ipsum</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias cum repellat velit quae suscipit c.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(/static/images/7.png)">
-								<div class="inner">
-									<p>react</p>
-		              <span>Lorem ipsum</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias cum repellat velit quae suscipit c.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col" ontouchstart="this.classList.toggle('hover');">
-						<div class="container">
-							<div class="front" style="background-image: url(/static/images/8.png)">
-								<div class="inner">
-									<p>Angular</p>
-		              <span>Lorem ipsum</span>
-								</div>
-							</div>
-							<div class="back">
-								<div class="inner">
-									<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias cum repellat velit quae suscipit c.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-		 </div>
-</div>
+  <div class="main" v-title data-title="标签">
+	  <div class="mainbox"> 
+		  <div class="title">
+			  标签
+		  </div>
+		  <div class="tj">目前共计{{ Object.keys(dataArr).length}}个标签</div>
+		  <div class="tag">
+			  	<ul class="clearfix">
+					  <li v-for="(value, key, index) in dataArr" :key="index"  @click="todetails(key)"><i><svg t="1589784613318" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2191"><path d="M522.1 951c-5.7 0-11.4-1.4-16.5-4.3L160.8 757c-8-4.4-13.9-11.8-16.4-20.5s-1.5-18.1 2.9-26.1l259.1-470.6c4-7.3 10.6-12.9 18.5-15.7L634.3 149c27-9.7 57-7.3 82.2 6.5 25.2 13.9 43.3 37.9 49.6 66l14.8 65.9c4.1 18.5-7.5 36.8-26 41-18.4 4.2-36.8-7.5-41-26l-14.8-65.9c-2-9-7.6-16.5-15.7-20.9-8-4.4-17.3-5.2-26-2l-197.2 70.7L224 713.4l284.6 156.7 236.2-429.2-6.2-27.7c-4.1-18.5 7.5-36.8 26-40.9 18.6-4.2 36.8 7.5 41 26l9 40.3c1.8 8.1 0.6 16.7-3.4 24l-259 470.6c-4.4 8-11.8 13.9-20.5 16.4-3.2 1-6.4 1.4-9.6 1.4z" fill="#009FE8" p-id="2192"></path><path d="M571.568671 418.867868a45.4 45.4 0 1 0 43.786278-79.544968 45.4 45.4 0 1 0-43.786278 79.544968Z" fill="#009FE8" p-id="2193"></path><path d="M593.4 413.4c-17.9 0-33-13.9-34.2-32-1.3-18.9 12.9-35.2 31.8-36.5 8.2-0.7 192.2-17.9 217.9-250.2 2.1-18.9 19.1-32.4 37.9-30.3 18.8 2.1 32.4 19.1 30.3 37.9-32.3 290.8-278.8 310.9-281.3 311-0.8 0.1-1.6 0.1-2.4 0.1z" fill="#009FE8" p-id="2194"></path><path d="M474.1 804.3c-2.7 0-5.5-0.7-8.1-2l-166.2-89.2c-8.3-4.5-11.5-14.9-7-23.2 4.5-8.3 14.8-11.5 23.2-7l166.2 89.2c8.3 4.5 11.5 14.9 7 23.2-3.1 5.8-9 9-15.1 9z" fill="#009FE8" p-id="2195"></path></svg></i>{{key}}({{value.num }})</li>
+				</ul>
+		  </div>
+
+	  </div>
+  </div>
 </template>
 
 <script>
- export default {
-   name:"Label",
-    data() {
-      return {
-      
-      };
+export default {
+  name: "Label",
+  data() {
+    return {};
+  },
+  methods: {
+	 todetails(id) {
+      this.$router.push({
+       path: `/labeldetails/${id}`,
+      });
     },
-    methods: {
-   
-    }
-  }
+
+  },
+  mounted() {
+	     
+  },
+  computed: {
+	  dataArr(){
+		//    console.log( this.$store.getters.islable ,111);
+		  return this.$store.getters.islable
+	  }
+  },
+};
 </script>
 
 
 <style scoped lang="less">
-  *{
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-/*h1{
-  font-size: 2.5rem;
-  font-family: 'Montserrat';
-  font-weight: normal;
-  color: #444;
-  text-align: center;
-  margin: 2rem 0;
-}*/
-.header{
-    text-align: center;
-    color: #9C9C9C;
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-body{background-color: #24252d}
-.wrapper{
-  width: 90%;
-  margin: 0 auto;
-  max-width: 80rem;
-}
-
-.cols{
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.col{
-  width: calc(~"25% - 2rem");
-  margin: 1rem;
-  cursor: pointer;
-}
-
-.container{
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-	-webkit-perspective: 1000px;
-	        perspective: 1000px;
-}
-
-.front,
-.back{
-  background-size: cover;
-	background-position: center;
-	-webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	-o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-	-webkit-backface-visibility: hidden;
-	        backface-visibility: hidden;
-	text-align: center;
-	min-height: 280px;
-	height: auto;
-	border-radius: 10px;
-	color: #fff;
-	font-size: 1.5rem;
-}
-
-.back{
-  background: #cedce7;
-  background: -webkit-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-  background: -o-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-  background: linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-}
-
-.front:after{
-	position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    content: '';
-    display: block;
-    opacity: .6;
-    background-color: #000;
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-    border-radius: 10px;
-}
-.container:hover .front,
-.container:hover .back{
-    -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-    transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-    -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-    transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
-}
-
-.back{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-
-.inner{
-    -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
-    transform: translateY(-50%) translateZ(60px) scale(0.94);
-    top: 50%;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    padding: 2rem;
-    font-size: .7em;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    outline: 1px solid transparent;
-    -webkit-perspective: inherit;
-    perspective: inherit;
-    z-index: 2;
-}
-
-.container .back{
-    -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-}
-
-.container .front{
-    -webkit-transform: rotateY(0deg);
-            transform: rotateY(0deg);
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-}
-
-.container:hover .back{
-  -webkit-transform: rotateY(0deg);
-          transform: rotateY(0deg);
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-}
-
-.container:hover .front{
-  -webkit-transform: rotateY(-180deg);
-          transform: rotateY(-180deg);
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-}
-
-.front .inner p{
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-.front .inner p:after{
-  content: '';
-  width: 4rem;
-  height: 2px;
-  position: absolute;
-  background: #C6D4DF;
-  display: block;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  bottom: -.75rem;
-}
-
-.front .inner span{
-  color: rgba(255,255,255,0.7);
-  font-family: 'Montserrat';
-  font-weight: 300;
-}
-
-@media screen and (max-width: 64rem){
-  .col{
-    width: calc(~"33.333333% - 2rem");
-  }
-}
-
-@media screen and (max-width: 48rem){
-  .col{
-    width: calc(~"50% - 2rem");
-  }
-}
-
-@media screen and (max-width: 32rem){
-  .col{
-    width: 100%;
-    margin: 0 0 2rem 0;
-  }
+.mainbox{
+	.title{
+		text-align: center;
+		padding: 30px 0 10px;
+		font-size: 25px
+	}
+	.tj{
+		text-align: center;
+		padding: 15px 0 10px;
+		font-size: 15px
+	}
+	.tag{
+		margin-top: 25px;
+		height: 100%;
+		ul{
+			height: 100%;
+			li{
+				width: 19%;
+				height: 100%;
+				padding: 20px 0;
+				text-align: center;
+				cursor: pointer;
+				float: left;
+				box-sizing: border-box;
+				white-space: pre-wrap;
+				display:block;
+				border-bottom:1px solid transparent;
+				i{
+					svg{
+						height: 20px;
+						width: 20px;
+						vertical-align: middle;
+						margin-right: 10px
+					}
+				}
+			}
+			li:nth-child(5n+1){
+				clear:left;
+			}
+			li:hover{
+				border-bottom:1px solid #ccc;
+			}
+		}
+	}
 }
 </style>

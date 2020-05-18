@@ -17,7 +17,7 @@
                         <h4>更新 {{item.title}}</h4>
                         <p>提交于 {{item.timer}}</p> 
                       </div>
-                      <div class="del" @click="del(item.id)">
+                      <div class="del" @click="del(item.id)" v-if="islogin">
                           删除
                       </div>
                     </el-card>
@@ -145,6 +145,9 @@ export default {
                  }  )
              }
       return newarr;
+    },
+    islogin(){
+      return this.$store.state.islogin
     }
   },
 };

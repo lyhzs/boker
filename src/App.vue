@@ -41,6 +41,17 @@ export default {
     };
   },
   computed: {},
+  created(){
+     var _this=this
+    //通过验证服务器上session 判断登录状态 
+     this.$http.post("/login").then(function(res) {
+      // console.log(res.data);
+           if (res.data.state) {
+                 _this.$store.commit("updateLogin", res.data.state);
+                 _this.$store.commit("updateuser", res.data.data);
+           }
+      })
+  },
   mounted() {
     //网站加载时请求数据
     var _this = this;

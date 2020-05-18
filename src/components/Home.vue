@@ -48,15 +48,18 @@ export default {
   },
   methods: {
     backtop(e) {
-      this.timer = setInterval(() => {
-        if (document.scrollingElement.scrollTop <= 0) {
-          clearInterval(this.timer);
-          this.timer = null;
-        } else {
-          document.scrollingElement.scrollTop =
-            document.scrollingElement.scrollTop - 200;
-        }
-      }, 50);
+      
+      // this.timer = setInterval(() => {
+      //   if (document.scrollingElement.scrollTop <= 0) {
+      //     clearInterval(this.timer);
+      //     this.timer = null;
+      //   } else {
+      //     document.scrollingElement.scrollTop =
+      //       document.scrollingElement.scrollTop - 200;
+      //   }
+      // }, 50);
+      //将公共方法提到公共js中调用
+        this.commom.backtop()
     },
     touser() {
        window.open("http://wpa.qq.com/msgrd?v=3&uin=494421184&site=qq&menu=yes")
