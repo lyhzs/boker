@@ -209,12 +209,15 @@ Vue.directive('title', {
       document.title = el.dataset.title
     }
   })
-  //移动端隐藏class
-  import 'element-ui/lib/theme-chalk/display.css';
-
+//移动端隐藏class
+import 'element-ui/lib/theme-chalk/display.css'
 //引入wow.js
 import 'animate.css'
-
+//swiper
+// import VueAwesomeSwiper from 'vue-awesome-swiper'
+// import 'swiper/css/swiper.css'
+// Vue.use(VueAwesomeSwiper)
+//  import 'swiper/dist/css/swiper.css'//（css需要单独引用）
 
 
 import Myfooter from '@/components/footer/Footer';
@@ -222,6 +225,7 @@ import Myfooter from '@/components/footer/Footer';
 Vue.component("Myfooter",Myfooter)
 //全局方法
 import common from '../commonFunction/commonfunction.js'
+
 Vue.prototype.commom=common
 /* eslint-disable no-new */
 new Vue({

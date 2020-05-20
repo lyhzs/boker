@@ -13,14 +13,14 @@
                 <i class="el-icon-s-home"></i>首页
               </router-link>
             </li>
+             <li>
+              <router-link :to="{path:'/label'}">
+                <i class="el-icon-s-check"></i>标签
+              </router-link>
+            </li>
             <li>
               <router-link :to="{path:'/classify'}">
                 <i class="el-icon-s-ticket"></i>分类
-              </router-link>
-            </li>
-           <li>
-              <router-link :to="{path:'/label'}">
-                <i class="el-icon-s-check"></i>标签
               </router-link>
             </li>
             <li>

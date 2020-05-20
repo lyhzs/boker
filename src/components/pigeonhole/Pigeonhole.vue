@@ -24,7 +24,18 @@
                   </el-timeline-item>
               </el-timeline>
         </div>
-
+          <!-- 分页 -->
+      <div class="togglepg">
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          :page-size="15"
+          :total="allDataArr.length"
+          @current-change="pageChange"
+          @prev-click="pagePrev"
+          @next-click="pageNext"
+        ></el-pagination>
+      </div> 
     </div>
   </div>
 </template>
@@ -35,6 +46,7 @@ export default {
   data() {
     return {
       // dataArr: []
+       flag: 1 //分页标识
     };
   },
   methods: {
@@ -117,14 +129,32 @@ export default {
 
     }
    },
+   pageChange(val) {
+     this.commom.backtop()
+      this.flag = val;
+    },
+    pagePrev(val) {
+       this.commom.backtop()
+      this.flag = val;
+    },
+    pageNext(val) {
+         this.commom.backtop()
+      this.flag = val;
+    }
   },
   mounted() {
     // this.dataArr = this.$store.state.dataArr;
   },
   computed: {
+    allDataArr() {
+      // console.log(this.$store.getters.sortArr);
+
+      // return this.$store.getters.sortArr;
+      return this.$store.getters.sortArr;
+    },
     dataArr(){
         //  console.log(this.$store.getters.sortArr)
-        var oldarr=this.$store.getters.sortArr
+        var oldarr=this.$store.getters.sortArr.slice((this.flag - 1) * 15, this.flag * 15);
         var yeararr=[]
         var newarr=[] //同年月的数据
         oldarr.forEach(element => {

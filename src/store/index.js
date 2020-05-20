@@ -77,7 +77,7 @@ const store = new Vuex.Store({
 
             return allify
         },
-        //发布时选择分组的建议
+        //标签
         islable(state){
              var allify={}
 
