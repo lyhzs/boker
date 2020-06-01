@@ -61,23 +61,32 @@
     </div>
     <!-- 登录状态 -->
     <div v-if="islogin">
-      <div class="header">
-        <div>欢迎登录：{{isuser}}</div>
-        <div>
-          在线状态：
-          <el-switch
-            v-model="islogin"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-            @change="leavelogin"
-          ></el-switch>
-        </div>
-        <div>权限等级：3</div>
-      </div>
+
       <!-- 文章用户管理  -->
       <div class="useradmin">
         <el-collapse v-model="activeName" accordion>
-          <el-collapse-item title="文章管理" name="1">
+          <el-collapse-item title="用户状态查看" name="1">
+          <div class="usertips">
+                  <h3>当前登录用户：{{isuser}}</h3>
+                  <h3> 在线状态：
+                  <el-switch
+                    v-model="islogin"
+                    active-color="#13ce66"
+                    active-text="在线"
+                    inactive-text="不在线"
+                    inactive-color="#ff4949"
+                    @change="leavelogin"
+                  ></el-switch></h3>
+                  <!-- <h3>权限等级：3 <i class="el-icon-question"></i> </h3> -->
+                  <h3>
+                    权限等级：3 
+                  <el-tooltip content="权限等级越高，可操作性越大" placement="bottom" effect="light">
+                      <el-button><i class="el-icon-question"></i> </el-button>
+                   </el-tooltip>
+                  </h3>
+          </div>
+          </el-collapse-item>
+          <el-collapse-item title="文章管理" name="2">
             <div class="search">
               <el-input placeholder="根据标题关键词搜索" v-model="search" clearable></el-input>
             </div>
@@ -102,22 +111,19 @@
                   <i :class="scope.row.ismy == 'true' ? 'el-icon-star-on' : 'el-icon-star-off'"></i>
                 </template>
               </el-table-column>
-              <el-table-column label="操作"  width="180">
-              
-     <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
-      </template>
-
+              <el-table-column label="操作" width="180">
+                <template slot-scope="scope">
+                  <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+                  <el-button
+                    size="mini"
+                    type="danger"
+                    @click="handleDelete(scope.$index, scope.row)"
+                  >Delete</el-button>
+                </template>
               </el-table-column>
             </el-table>
           </el-collapse-item>
-          <el-collapse-item title="用户管理" name="2">
+          <el-collapse-item title="用户管理" name="3">
             <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
             <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
           </el-collapse-item>
@@ -126,7 +132,6 @@
       <!-- 文章修改 -->
       <div class="wzsett">
         <el-dialog title="文章修改" :visible.sync="wzsett" width="30%" :before-close="handleClose">
-
           <div class="list">
             <div class="left">文章时间：</div>
             <el-input class="right" placeholder="请输入账号" v-model="timer"></el-input>
@@ -145,21 +150,19 @@
           </div>
           <div class="list">
             <div class="left">文章摘要：</div>
-             <el-input type="textarea" v-model="expl"></el-input>
+            <el-input type="textarea" v-model="expl"></el-input>
           </div>
           <div class="list">
-           
-  
-             <el-switch v-model="ismy"  active-color="#13ce66"
-            inactive-color="#ff4949"
-            active-text="收藏"
-            inactive-text="未收藏"></el-switch>
-   
+            <el-switch
+              v-model="ismy"
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              active-text="收藏"
+              inactive-text="未收藏"
+            ></el-switch>
           </div>
 
-
           <span slot="footer" class="dialog-footer">
-         
             <el-button type="primary" @click="handleUpadta()">提交修改</el-button>
           </span>
         </el-dialog>
@@ -189,13 +192,13 @@ export default {
       },
       wzsett: false, //文章修改弹层
       // 修改文章
-      id:"",
+      id: "",
       timer: "",
       title: "",
       classify: "",
       islabel: "",
       ismy: "",
-      expl:""
+      expl: ""
     };
   },
   methods: {
@@ -259,27 +262,29 @@ export default {
         });
     },
     handleEdit(index, row) {
-      this.wzsett=true
+      this.wzsett = true;
 
-      this.id=row.id
+      this.id = row.id;
       this.timer = row.timer;
       this.title = row.title;
       this.classify = row.classify;
       this.islabel = row.islabel;
       this.expl = row.expl;
-      this.ismy = row.ismy=="true"?true:false;
-
+      this.ismy = row.ismy == "true" ? true : false;
     },
-    handleUpadta(){
- var _this = this;
-   var postData = {
-         id:this.id,
+    handleUpadta() {
+      var _this = this;
+      var postData = {
+        id: this.id,
         title: this.title,
-        classify: this.classify ,
+        classify: this.classify,
         timer: this.timer,
-        expl: this.expl == "" ? "未填写描述" : this.expl.replace(/[\\/"']/g, "\\$&"),
+        expl:
+          this.expl == ""
+            ? "未填写描述"
+            : this.expl.replace(/[\\/"']/g, "\\$&"),
         ismy: this.ismy ? "true" : "false",
-        islabel: this.islabel,
+        islabel: this.islabel
       };
       this.$http.post("/updata", postData).then(function(res) {
         if (res.data.state) {
@@ -288,14 +293,13 @@ export default {
             message: "修改成功",
             type: "success"
           });
-       
+
           //修改成功重新查看数据
           _this.$http.get("/look").then(function(res) {
             _this.$store.commit("allData", res.data.data);
           });
 
-        _this.wzsett=false
-
+          _this.wzsett = false;
         } else {
           _this.$notify.error({
             title: "错误",
@@ -305,38 +309,39 @@ export default {
       });
     },
     handleDelete(index, row) {
-      var postid={id:row.id}
-      var _this=this
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+      var postid = { id: row.id };
+      var _this = this;
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.$http.post("/del", postid).then(function(res) {
+            if (res.data.status) {
+              _this.$notify({
+                title: "成功",
+                message: "删除成功",
+                type: "success"
+              });
 
-       this.$http.post("/del",postid).then(function(res) {
-        if (res.data.status) {
-          _this.$notify({
-            title: "成功",
-            message: "删除成功",
-            type: "success"
+              _this.$http.get("/look").then(function(res) {
+                _this.$store.commit("allData", res.data.data);
+              });
+            } else {
+              _this.$notify.error({
+                title: "错误",
+                message: "删除失败"
+              });
+            }
           });
-
-          _this.$http.get("/look").then(function(res) { _this.$store.commit("allData", res.data.data); });
-        
-        } else {
-          _this.$notify.error({
-            title: "错误",
-            message: "删除失败"
-          });
-        }
-      });
-        }).catch(() => {
-        //取消删除
+        })
+        .catch(() => {
+          //取消删除
           this.$notify.error({
             title: "错误",
             message: "取消删除"
           });
-
         });
     },
     handleClose(done) {
@@ -397,13 +402,6 @@ export default {
     }
   }
 }
-.header {
-  display: flex;
-  div {
-    flex: 1;
-    text-align: center;
-  }
-}
 .newdate {
   margin: 30px auto 10px;
 }
@@ -425,5 +423,12 @@ export default {
       flex: 1;
     }
   }
+}
+.usertips{
+  padding: 8px 16px;
+    background-color: #ecf8ff;
+    border-radius: 4px;
+    border-left: 5px solid #50bfff;
+    margin: 20px 0;
 }
 </style>

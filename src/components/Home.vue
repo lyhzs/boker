@@ -62,7 +62,8 @@ export default {
         this.commom.backtop()
     },
     touser() {
-       window.open("http://wpa.qq.com/msgrd?v=3&uin=494421184&site=qq&menu=yes")
+     //  window.open("http://wpa.qq.com/msgrd?v=3&uin=494421184&site=qq&menu=yes")
+      this.$router.push("/login").catch(data=>{})
     },
     tosearch() {
       this.$router.push("/search").catch(data=>{})

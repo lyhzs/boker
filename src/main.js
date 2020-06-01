@@ -16,8 +16,8 @@ import axios from 'axios'
 // axios
 import qs from 'qs'
 Vue.prototype.$http=axios
-//Vue.prototype.$http.defaults.baseURL ='http://180.76.151.100:3000/'  
- Vue.prototype.$http.defaults.baseURL ='http://localhost:3000/'  
+Vue.prototype.$http.defaults.baseURL ='http://180.76.151.100:3000/'  
+ //Vue.prototype.$http.defaults.baseURL ='http://localhost:3000/'  
 
  //解决cookie失效的问题
 axios.defaults.withCredentials= true; 
