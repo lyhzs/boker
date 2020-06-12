@@ -28,16 +28,16 @@
                 <i class="el-icon-s-cooperation"></i>归档
               </router-link>
             </li>
-            <li>
+            <!-- <li>
               <router-link :to="{path:'/interaction'}">
                 <i class="el-icon-s-promotion"></i>互动
               </router-link>
-            </li>
-             <!-- <li>
+            </li> -->
+              <li>
               <router-link :to="{path:'/login'}">
                 <i class="el-icon-s-check"></i>权限
               </router-link>
-            </li> -->
+            </li> 
             <li>
               <router-link :to="{path:'/issue'}">
                 <i class="el-icon-share"></i>发布

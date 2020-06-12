@@ -87,11 +87,10 @@
             ></vue-html5-editor>
           </div>
           <!-- 提交 -->
-          <div class="submit">
-            <el-button type="primary" @click="submit">
-              提交
-              <i class="el-icon-upload el-icon--right"></i>
-            </el-button>
+          <div class="submit"  >
+                  <div @click="submit">发布</div>
+                  <div @click="deleteSubmit">清空</div>
+                  <div @click="saveSubmit">保存</div>
           </div>
         </el-collapse-item>
       </el-collapse>
@@ -298,6 +297,14 @@ export default {
         }
       });
     },
+    //清空编辑框
+    deleteSubmit() {
+      this.content='' 
+    },
+    //保存编辑内容到本地
+    saveSubmit() {
+       localStorage.setItem("temporary", this.content);
+    },
     //富文本编辑
     updateData: function(data) {
       // sync content to component
@@ -398,10 +405,68 @@ export default {
 .title {
   padding: 15px 0;
 }
-.submit {
-  margin: 20px auto;
-  text-align: center;
+
+  .submit {
+  
+ position: fixed;
+ right: 80px;
+ top: 30%;
+    div{
+      cursor: pointer;
+      color: #21ebff;
+      padding: 10px 50px;
+      margin:  50px auto;
+      position: relative;
+      transition: all 0.5s;
+      overflow: hidden;
+    }
+    div:hover{
+      background-color: #21ebff;
+      color:#111;
+      box-shadow: 0 0 50px #21ebff;
+      transition: all .5s;
+    }
+    div:hover::after{
+      width: 100%;
+      height: 100%;
+      transition: all .5s;
+    }
+    div:hover::before{
+      width: 100%;
+      height: 100%;
+      transition: all .5s;
+    }
+    div::after{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid #21ebff;
+      border-left: 2px solid #21ebff;
+      transition: all .5s;
+    }
+    div::before{
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      border-bottom: 2px solid #21ebff;
+      border-right: 2px solid #21ebff;
+      transition: all .5s;
+    }
+    div:nth-child(2){
+      filter: hue-rotate(115deg);
+    }
+    div:nth-child(3){
+      filter: hue-rotate(270deg);
+    }
 }
+
+
 #editor {
   height: 450px;
 }
